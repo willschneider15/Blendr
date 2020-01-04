@@ -10,16 +10,16 @@ import HomeScreen from './Home'
 
 
 const AppNavigator = createStackNavigator({
-  Home: {
+  HomeScreen: {
     screen: HomeScreen,
   },
-  Login: {
+  LoginScreen: {
     screen: LoginScreen,
   },
-  Register: {
+  RegisterScreen: {
     screen: RegisterScreen
   },
-  Match: {
+  MatchScreen: {
     screen: MatchScreen
   }
 });
