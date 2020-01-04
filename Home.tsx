@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Button} from 'react-native';
 
 interface HomeScreenProps {
     navigation;
 }
 const DUCK = 'https://cdn.discordapp.com/attachments/654373638065225731/662870509750452244/logoTest.gif';
 
-export default class HomeScreen extends Component {
+export default class HomeScreen extends Component<HomeScreenProps> {
     constructor(props) {
         super(props);   
     }
-
     render() {
         return (
             
@@ -28,7 +27,10 @@ export default class HomeScreen extends Component {
                 >
                 </Image>
                 <Text>  BLENDR</Text>
-
+                <Button
+                title="Sign in"
+                onPress={() => this.props.navigation.navigate('LoginScreen')}
+                />
 
             </View>
         );
