@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, AsyncStorage, TextInput, Button, Text } from "react-native";
+import { View, AsyncStorage, TextInput, Button, Text, Alert } from "react-native";
 import User from "./User";
 
 interface LoginScreenProps {
@@ -36,15 +36,19 @@ export default class LoginScreen extends Component<
     });
   }
 
-  submit() {
+  submit = () => {
     const { email, password } = this.state;
     User.authenticate(email, password).then(result => {
       if (result.success) {
         AsyncStorage.setItem('email', email);
         AsyncStorage.setItem('auth', password);
-        this.props.navigation.navigate("app");
+        this.props.navigation.navigate("MatchScreen");
       } else {
-        this.setState({ loginError: result.error });
+        //this.setState({ loginError: result.error });
+        Alert.alert(
+          'Sorry!',
+          'Login failed',
+        );
       }
     });
   }

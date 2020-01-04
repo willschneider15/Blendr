@@ -27,36 +27,57 @@ export default class User {
     database().ref(`users/${this.email}`).set(this);
   }
   
-  public static async createUser(email: string, password: string, firstName: string, questionAnswers: QuestionAnswer[]): Promise<User> {
+  public static async createUser(email: string, password: string, firstName: string, questionAnswers: QuestionAnswer[]): Promise<Boolean> {
+      let success = true;
       // Attempt to create user in Firebase
-      firebaseAuth.createUserWithEmailAndPassword(email, password).catch(error => {
+      await firebaseAuth.createUserWithEmailAndPassword(email, password).catch(error => {
         // TODO: Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
+        console.log('fail');
+        success = false;
+        return false;
       });
 
-      // Add user to database
-      var userInfo;
-      userInfo.name = firstName;
-      for (let qa of questionAnswers) {
-        userInfo[qa.dbKey] = qa.answer;
+      // Add user's name and other metadata
+      if (success) {
+        var userInfo = { 
+            name: firstName,
+            score: 0,
+            lookingForMatch: false,
+            prevMatches: new Array<string>() };
+        
+        // Add each answer response of user
+        for (let qa of questionAnswers) {
+          userInfo[qa.dbKey] = qa.answer;
+        }
+      
+        // Add user to database
+        firestore.collection('Users').doc(email).set(userInfo);
+      
+        await AsyncStorage.setItem('auth', password);
+        return true;
       }
-      firestore.collection('Users').doc(email).set(userInfo);
-
-      await AsyncStorage.setItem('auth', password);
-      return new User(email, firstName, questionAnswers);
   }
 
   static async authenticate(username: string, password: string) {
-    firebaseAuth.signInWithEmailAndPassword(username, password).catch(function(error) {
-      // Return false if error was thrown
+    let successful = true;
+    let res = {success: true};
+    await firebaseAuth.signInWithEmailAndPassword(username, password).catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
-      return {success: false, error: errorMessage};
+      if (errorCode) {
+        console.log('fail');
+        successful = false;
+      }
     });
-    // If this point of the code is reached, return true
-    return {success: true, error: ''};
+
+    if (!successful) {
+      res.success = false;
+    }
+    
+    return res;
   }
 
   static getUser(email: string) {

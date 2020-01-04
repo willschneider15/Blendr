@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TextInput, Button, AsyncStorage } from "react-native";
+import { View, TextInput, Button, AsyncStorage, Alert } from "react-native";
 import User from "./User";
 
 // NEED TO UPDATE THESE TWO IN PARALLEL
@@ -17,36 +17,61 @@ interface RegisterState {
   email: string;
   password: string;
   firstName: string;
+  answers: string[];
 }
 
 export default class Register extends Component<RegisterProps, RegisterState> {
-  answers = new Array(questions.length);
+  answers = new Array(questions.length).map(() => '');
   elements = questions.map((question, index) => (
     <TextInput
       placeholder={question}
-      onChangeText={text => {
-        this.answers[index] = text;
-      }}
+      onChangeText={text => this.onQuestionChange(text, index)}
       key={index}
     />
   ));
 
   constructor(props: RegisterProps) {
     super(props);
+    this.state = {
+      answers: new Array(questions.length),
+      email: '',
+      password: '',
+      firstName: '',
+    };
+    this.onQuestionChange.bind(this);
   }
 
-  submit() {
-    const [{ email, password, firstName }, answers] = [this.state, ...this.answers];
-    answers.map((answer, i) => ({
+  onQuestionChange(text, i) {
+    this.setState(prevState => {
+      prevState.answers[i] = text
+      return prevState;
+    });
+  }
+
+  submit = async () => {
+    let { email, password, firstName, answers } = this.state;
+    const newAnswers = answers.map((answer, i) => ({
       question: questions[i],
       answer: answer,
       dbKey: dbKeys[i],
     }));
-    User.createUser(email, password, firstName, answers);
+    const res = await User.createUser(email, password, firstName, newAnswers);
+    // If login succeeds, navigate to homepage
+    if (res) {
+      Alert.alert(
+        'Congrats!',
+        'Your Registration Was Successful',
+      );
+      this.props.navigation.navigate("HomeScreen");
+    } else {
+      Alert.alert(
+        'Sorry!',
+        'Registration failed',
+      );
+    }
     AsyncStorage.setItem("email", email);
     AsyncStorage.setItem("auth", password);
     AsyncStorage.setItem("firstName", firstName);
-    this.props.navigation.navigate("app");
   }
 
   render() {
