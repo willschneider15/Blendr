@@ -3,6 +3,7 @@ import data from "./secrets.json";
 import axios, {AxiosResponse} from 'axios';
 import { View, Text, Image, Button } from "react-native";
 import ViewButton from "./ViewButton";
+import User from "./User";
 
 interface HomeScreenProps {
   navigation;
@@ -13,8 +14,8 @@ interface HomeScreenState {
 }
 
 interface MatchObject {
-  currentUserEmail: string;
-  otherUserEmail: string;
+  currentUser: Promise<User>;
+  matchedUser: Promise<User>;
   location: Promise<AxiosResponse<any>>;
   time: Date;
 }
