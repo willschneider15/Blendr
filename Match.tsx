@@ -68,10 +68,16 @@ export default class MatchScreen extends Component<
     await new Promise(resolve => setTimeout(resolve, 1000));
   }
 
-  getCurrentDate() {
-    var currentTime = new Date();
-    currentTime.getHours();
-    return currentTime;
+  sendCurrentDate = () => {
+    var date = [
+      new Date().getDate(),
+      new Date().getMonth(),
+      new Date().getFullYear(),
+      new Date().getHours(),
+      new Date().getMinutes(),
+      new Date().getSeconds(),
+    ]
+    return date; 
   }
 
   chooseTime() {}
