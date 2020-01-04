@@ -14,8 +14,8 @@ interface HomeScreenState {
 }
 
 interface MatchObject {
-  currentUserEmail: string;
-  otherUserEmail: string;
+  currentUser: Promise<User>;
+  matchedUser: Promise<User>;
   location: Promise<AxiosResponse<any>>;
   time: Date;
 }
