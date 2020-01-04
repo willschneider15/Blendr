@@ -29,7 +29,11 @@ class Register extends Component<RegisterProps, RegisterState> {
   }
 
   submit() {
-    const [{ email, password }, answers] = [this.state, this.answers];
+    const [{ email, password }, answers] = [this.state, ...this.answers];
+    answers.map((answer, i) => ({
+      question: questions[i],
+      answer: answer,
+    }));
     User.createUser(email, password, answers);
     AsyncStorage.setItem("email", email);
     AsyncStorage.setItem("auth", password);
