@@ -17,6 +17,14 @@ export default class User {
     return AsyncStorage.getItem('auth');
   }
 
+  static get isLoggedIn() {
+    return new Promise(resolve => {
+      AsyncStorage.getItem("auth", error =>
+        error ? resolve(false) : resolve(true)
+      );
+    });
+  }
+
   private constructor(email: string, firstName: string, questionAnswer: QuestionAnswer[]) {
     this.email = email;
     this.firstName = firstName;
