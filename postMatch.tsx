@@ -7,10 +7,12 @@ interface HomeScreenProps {
 const LOGO =
   "https://cdn.discordapp.com/attachments/654373638065225731/662870509750452244/logoTest.gif";
 
-export default class MatchScreen extends Component<HomeScreenProps> {
+export default class postMatchScreen extends Component<HomeScreenProps> {
   constructor(props) {
     super(props);
   }
+
+
 
   render() {
     return (
@@ -19,23 +21,10 @@ export default class MatchScreen extends Component<HomeScreenProps> {
         <Image style={{ width: 70, height: 70 }} source={{ uri: LOGO }}></Image>
         <Button
           title="Start Match"
-          onPress={() => match}
+          onPress={() => this.props.navigation.navigate("LoginScreen")}
         />
+        
       </View>
     );
   }
-}
-
-function match(){
-  
-  chooseLocation()
-  this.props.navigation.navigate("postMatchScreen")
-}
-
-function chooseLocation(){
-  const retVal = fetch('https://api.yelp.com/v3', {
-    headers: {
-      Authorization
-    }
-  })
 }

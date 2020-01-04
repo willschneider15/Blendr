@@ -1,9 +1,10 @@
 // Setup firebase auth
 import firebase from 'firebase'
+import data from './secrets.json'
 import '@firebase/firestore';
 
 var firebaseConfig = {
-    apiKey: "AIzaSyDD_rpgNVVRut0t601rRpWOWStpigrx-wA",
+    apiKey: data.firebaseKey,
     authDomain: "blendr-ffa89.firebaseapp.com",
     databaseURL: "https://blendr-ffa89.firebaseio.com",
     projectId: "blendr-ffa89",

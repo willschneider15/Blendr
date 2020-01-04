@@ -5,13 +5,20 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './Login';
 import RegisterScreen from './Register';
 import MatchScreen from './Match';
+import postMatchScreen from './postMatch';
 import HomeScreen from './Home'
 
 const config: NavigationStackRouterConfig = {
-  initialRouteName: "HomeScreen"
+  initialRouteName: "MatchScreen"
 }
 
 const AppNavigator = createStackNavigator({
+  MatchScreen: {
+    screen: MatchScreen
+  },
+  postMatchScreen: {
+    screen: postMatchScreen
+  },
   HomeScreen: {
     screen: HomeScreen,
   },
@@ -20,10 +27,8 @@ const AppNavigator = createStackNavigator({
   },
   RegisterScreen: {
     screen: RegisterScreen
-  },
-  MatchScreen: {
-    screen: MatchScreen
   }
+  
 }, config);
 
 export default createAppContainer(AppNavigator);

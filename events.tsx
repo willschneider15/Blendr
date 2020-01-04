@@ -1,20 +1,22 @@
-import React, {Component } from 'react';
-import {View, Text, Grid, Row} from 'react-native';
+// import React, {Component } from 'react';
+// import {View, Text, Grid, Row} from 'react-native';
 
-interface EventsScreenProps {
-    navigation;
-} 
+// //This is a stretch goal feature
+// interface EventsScreenProps {
+//     navigation;
+// } 
 
-export default class EventScreen extends Component<EventsScreenProps> {
-    constructor(props) {
-        super(props);
-    }
+// export default class EventScreen extends Component<EventsScreenProps> {
+//     constructor(props) {
+//         super(props);
+//     }
 
-    render()
-    {
-        return (
-                <Text>testing</Text> 
-        );
-    }
-}
+//     render()
+//     {
+//         return (
+//                 <Text>testing</Text> 
+
+//         );
+//     }
+// }
 
