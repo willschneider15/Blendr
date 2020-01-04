@@ -18,7 +18,6 @@ export default class HomeScreen extends Component {
                 flex: 1,
                 flexDirection: 'column',
                 justifyContent: 'flex-start',
-                
                 alignContent: 'space-around',
                 paddingTop: 50,
                 paddingLeft: 50,
@@ -29,6 +28,7 @@ export default class HomeScreen extends Component {
                 >
                 </Image>
                 <Text>  BLENDR</Text>
+
 
             </View>
         );
