@@ -11,6 +11,7 @@ interface RegisterProps {
 interface RegisterState {
   email: string;
   password: string;
+  firstName: string;
 }
 
 class Register extends Component<RegisterProps, RegisterState> {
@@ -29,14 +30,15 @@ class Register extends Component<RegisterProps, RegisterState> {
   }
 
   submit() {
-    const [{ email, password }, answers] = [this.state, ...this.answers];
+    const [{ email, password, firstName }, answers] = [this.state, ...this.answers];
     answers.map((answer, i) => ({
       question: questions[i],
       answer: answer,
     }));
-    User.createUser(email, password, answers);
+    User.createUser(email, password, firstName, answers);
     AsyncStorage.setItem("email", email);
     AsyncStorage.setItem("auth", password);
+    AsyncStorage.setItem("firstName", firstName);
     this.props.navigation.navigate("app");
   }
 
@@ -50,6 +52,10 @@ class Register extends Component<RegisterProps, RegisterState> {
         <TextInput
           placeholder="Password"
           onChangeText={password => this.setState({ password: password })}
+        ></TextInput>
+        <TextInput
+          placeholder="First Name"
+          onChangeText={firstName => this.setState({ firstName: firstName })}
         ></TextInput>
         {questions}
         <Button title="Submit" onPress={this.submit}></Button>

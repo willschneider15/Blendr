@@ -10,14 +10,16 @@ interface QuestionAnswer {
 
 export default class User {
   private email: string;
+  private firstName: string;
   private questionAnswers: QuestionAnswer[];
   private image?: Image;
   static get password(): Promise<string> {
     return AsyncStorage.getItem('auth');
   }
 
-  private constructor(email: string, questionAnswer: QuestionAnswer[]) {
+  private constructor(email: string, firstName: string, questionAnswer: QuestionAnswer[]) {
     this.email = email;
+    this.firstName = firstName;
     this.questionAnswers = questionAnswer;
   }
 
@@ -25,7 +27,7 @@ export default class User {
     database().ref(`users/${this.email}`).set(this);
   }
   
-  public static async createUser(email: string, password: string, questionAnswers: QuestionAnswer[]): Promise<User> {
+  public static async createUser(email: string, password: string, firstName: string, questionAnswers: QuestionAnswer[]): Promise<User> {
       // Attempt to create user in Firebase
       firebaseAuth.createUserWithEmailAndPassword(email, password).catch(error => {
         // TODO: Handle Errors here.
@@ -36,13 +38,14 @@ export default class User {
 
       // Add user to database
       var userInfo;
+      userInfo.name = firstName;
       for (let qa of questionAnswers) {
         userInfo[qa.dbKey] = qa.answer;
       }
       firestore.collection('Users').doc(email).set(userInfo);
 
       await AsyncStorage.setItem('auth', password);
-      return new User(email, questionAnswers);
+      return new User(email, firstName, questionAnswers);
   }
 
   static async authenticate(username: string, password: string) {
@@ -60,7 +63,7 @@ export default class User {
     return new Promise<User>(resolve => {
       database().ref(`users/${email}`).on("value", snapshot => {
         const val = snapshot.val();
-        const user = new User(val.email, val.questionAnswers);
+        const user = new User(val.email, val.firstName, val.questionAnswers);
         resolve(user);
       });
     });
