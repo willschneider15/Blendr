@@ -4,7 +4,7 @@ import { View, Text, Image, Button } from "react-native";
 interface HomeScreenProps {
   navigation;
 }
-const DUCK =
+const LOGO =
   "https://cdn.discordapp.com/attachments/654373638065225731/662870509750452244/logoTest.gif";
 
 export default class HomeScreen extends Component<HomeScreenProps> {
@@ -23,7 +23,7 @@ export default class HomeScreen extends Component<HomeScreenProps> {
           paddingLeft: 50
         }}
       >
-        <Image style={{ width: 70, height: 70 }} source={{ uri: DUCK }}></Image>
+        <Image style={{ width: 70, height: 70 }} source={{ uri: LOGO }}></Image>
         <Text>BLENDR</Text>
         <Button
           title="Sign in"

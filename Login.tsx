@@ -26,6 +26,26 @@ export default class LoginScreen extends Component<
       email: '',
       password: '',
     };
+    this.state = {
+      loginError: '',
+      email: '',
+      password: '',
+    };
+    this.state = {
+      loginError: '',
+      email: '',
+      password: '',
+    };
+    this.state = {
+      loginError: '',
+      email: '',
+      password: '',
+    };
+    this.state = {
+      loginError: '',
+      email: '',
+      password: '',
+    };
   }
 
   static get loggedIn() {
