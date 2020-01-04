@@ -9,7 +9,7 @@ import User from "./User";
 import LoginScreen from "./Login";
 import RegisterScreen from "./Register";
 import MatchScreen from "./Match";
-import postMatchScreen from "./postMatch";
+import postMatchScreen from "./PostMatch";
 import HomeScreen from "./Home";
 
 const config: NavigationStackRouterConfig = {

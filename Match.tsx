@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import data from "./secrets.json";
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import { View, Text, Image, Button } from "react-native";
 import ViewButton from "./ViewButton";
 
@@ -10,6 +10,13 @@ interface HomeScreenProps {
 
 interface HomeScreenState {
   date: number | string;
+}
+
+interface MatchObject {
+  currentUserEmail: string;
+  otherUserEmail: string;
+  location: Promise<AxiosResponse<any>>;
+  time: Date;
 }
 
 const LOGO =
@@ -52,32 +59,18 @@ export default class MatchScreen extends Component<
   }
 
   match = async () => {
-    this.chooseTime();
+    const time = this.chooseTime();
     this.chooseLoc();
-    // const ifSuccess = result => {
-
-    // };
-    // const ifFailure = error => {
-    //   console.error(error);
-    // };
-    // this.chooseLocation()
-    //   .then(ifSuccess)
-    //   .catch(ifFailure);
-
-    this.getCurrentDate();
     await new Promise(resolve => setTimeout(resolve, 1000));
   }
 
-  getCurrentDate() {
-    var currentTime = new Date();
-    currentTime.getHours();
-    return currentTime;
+  chooseTime() {
+    const currentTime = new Date();
+    return new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDay(), 18);
   }
 
-  chooseTime() {}
-
-  chooseLoc(){
-    axios.get(`https://api.yelp.com/v3/businesses/search?location=WestLake%Ohio`, {
+  chooseLoc() {
+    return axios.get(`https://api.yelp.com/v3/businesses/search?location=WestLake%Ohio`, {
       headers: {
         Authorization: `Bearer ${data.yelpKey}`
     },
@@ -86,13 +79,7 @@ export default class MatchScreen extends Component<
         categories: 'coffee',
         //add functionality to check if shop is open at given time
     }
-    })
-    .then((res) => {
-      console.log(res.data.businesses[0].name)
-    })
-    .catch((err) => {
-      console.log ('No locations were found')
-    })
+    });
   }
 
   // async chooseLocation() {
