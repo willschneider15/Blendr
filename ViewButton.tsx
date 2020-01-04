@@ -20,26 +20,64 @@ class MatchJob {
 
   constructor() {
     this.running = false;
-    this.setRunning.bind(this);
+    this.start.bind(this);
   }
 
-  setRunning(running: boolean) {
-    this.running = running;
+  start() {
+    return new Promise((resolve, reject) => {
+      this.running = true;
+      setTimeout(() => {
+        reject("Not Implemented");
+        this.running = false;
+      }, 2000);
+    });
   }
 }
 
-interface MatchmakingProps {
-  toggleMatchmaking: (event: GestureResponderEvent) => void;
+interface ViewButtonProps {
+  onMatchFound(): void;
 }
 
-class MatchmakingIcon extends Component<MatchmakingProps> {
+interface ViewButtonState {
+  matchmaking: boolean;
+  matchmakingJob: MatchJob;
+  error: string;
+}
+
+export default class ViewButton extends Component<ViewButtonProps, ViewButtonState> {
   constructor(props) {
     super(props);
+    this.state = {
+      matchmaking: false,
+      matchmakingJob: new MatchJob(),
+      error: ""
+    };
   }
 
+  stopMatchmaking = reason => {
+    this.setState({
+      matchmaking: false,
+      matchmakingJob: new MatchJob(),
+      error: reason
+    });
+  };
+
+  startMatchmaking = () => {
+    if (this.state.matchmaking) {
+      return;
+    }
+    this.setState({
+      matchmaking: true
+    });
+    this.state.matchmakingJob
+      .start()
+      .then(this.props.onMatchFound)
+      .catch(reason => this.stopMatchmaking('No matches found'));
+  };
+
   render() {
-    return (
-      <TouchableOpacity onPress={this.props.toggleMatchmaking}>
+    if (this.state.matchmaking) {
+      return (
         <View style={{ alignContent: "center" }}>
           <Image
             style={{ width: 70, height: 70 }}
@@ -50,47 +88,25 @@ class MatchmakingIcon extends Component<MatchmakingProps> {
             <ActivityIndicator />
           </View>
         </View>
-      </TouchableOpacity>
-    );
-  }
-}
-
-interface ViewButtonState {
-  matchmaking: boolean;
-  matchmakingJob: MatchJob;
-}
-
-export default class ViewButton extends Component<{}, ViewButtonState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      matchmaking: false,
-      matchmakingJob: new MatchJob()
-    };
-  }
-
-  toggleMatchmaking = () => {
-    this.setState(prevState => {
-      const matchmaking = !prevState.matchmaking;
-      this.state.matchmakingJob.setRunning(matchmaking);
-      return {
-        matchmaking: matchmaking
-      };
-    });
-  };
-
-  render() {
-    if (this.state.matchmaking) {
-      return <MatchmakingIcon toggleMatchmaking={this.toggleMatchmaking} />;
+      );
     } else {
       return (
-        <TouchableOpacity onPress={this.toggleMatchmaking}>
+        <TouchableOpacity onPress={this.startMatchmaking}>
           <View>
             <Image
               style={{ width: 70, height: 70 }}
               source={{ uri: NON_MOVING_DUCK }}
             ></Image>
             <Text>Find Match</Text>
+            <Text
+              style={{
+                color: "red",
+                justifyContent: "center",
+                alignContent: "center"
+              }}
+            >
+              {this.state.error}
+            </Text>
           </View>
         </TouchableOpacity>
       );
