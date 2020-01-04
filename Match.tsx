@@ -15,7 +15,7 @@ interface HomeScreenState {
 
 interface MatchObject {
   currentUser: Promise<User>;
-  otherUser: Promise<User>;
+  otherUser: User;
   location: Promise<AxiosResponse<any>>;
   time: Date;
 }
@@ -59,11 +59,11 @@ class MatchScreen extends Component<
     this.props.navigation.navigate("postMatchScreen");
   }
 
-  match = () => {
+  match = async () => {
     const otherUserEmail = 'test@test.com';
     return {
       currentUser: AsyncStorage.getItem('email').then(User.getUser),
-      otherUser: User.getUser(otherUserEmail),
+      otherUser: await User.getUser(otherUserEmail),
       location: this.chooseLoc(),
       time: this.chooseTime(),
     };
