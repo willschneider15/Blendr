@@ -2,7 +2,8 @@ import Base64 from "base-64";
 import { Image, AsyncStorage } from "react-native";
 import { database } from "firebase";
 import { firebaseAuth } from "./FirebaseConfig";
-import firebase from "firebase/app";
+import { firestore } from "./FirebaseConfig";
+
 export default class User {
   private email: string;
   private questionAnswers: string[];
@@ -22,19 +23,30 @@ export default class User {
   
   public static async createUser(email: string, password: string, questionAnswers: string[]): Promise<User> {
       // Attempt to create user in Firebase
-      firebaseAuth.auth().createUserWithEmailAndPassword(email, password).catch(error => {
+      firebaseAuth.createUserWithEmailAndPassword(email, password).catch(error => {
         // TODO: Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
       });
 
+      // Add user to database
+      firestore.collection('Users').doc(email).set({
+        // DATA FIELDS GO HERE
+      });
+
       await AsyncStorage.setItem('auth', password);
       return new User(email, questionAnswers);
   }
 
-  //TODO: Jake write this
   static async authenticate(username: string, password: string) {
+    firebaseAuth.signInWithEmailAndPassword(username, password).catch(function(error) {
+      // Return false if error was thrown
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      return {success: false, error: errorMessage};
+    });
+    // If this point of the code is reached, return true
     return {success: true, error: ''};
   }
 

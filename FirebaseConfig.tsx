@@ -1,5 +1,6 @@
 // Setup firebase auth
-var firebaseAuth = require("firebase/app");
+import firebase from 'firebase'
+import '@firebase/firestore';
 
 var firebaseConfig = {
     apiKey: "AIzaSyDD_rpgNVVRut0t601rRpWOWStpigrx-wA",
@@ -12,7 +13,12 @@ var firebaseConfig = {
     measurementId: "G-3653LH59L2"
   };
 
-  firebaseAuth.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
+
+// Setup firestore
+const firestore = firebase.firestore();
+const firebaseAuth = firebase.auth();
 
 // Export needed globals
 export { firebaseAuth };
+export { firestore };
