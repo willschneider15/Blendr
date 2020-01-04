@@ -1,13 +1,13 @@
 import Base64 from "base-64";
 import { Image, AsyncStorage } from "react-native";
 import { database } from "firebase";
-var firebase = require("firebase/app");
+import firebase from "firebase/app";
 
-class User {
+export default class User {
   private email: string;
   private questionAnswers: string[];
   private image?: Image;
-  get password(): Promise<string> {
+  static get password(): Promise<string> {
     return AsyncStorage.getItem('auth');
   }
 
@@ -32,7 +32,12 @@ class User {
       return new User(email, questionAnswers);
   }
 
-  static async getUser(email: string) {
+  //TODO: Jake write this
+  static async authenticate(username: string, password: string) {
+    return {success: true, error: ''};
+  }
+
+  static getUser(email: string) {
     return new Promise<User>(resolve => {
       database().ref(`users/${email}`).on("value", snapshot => {
         const val = snapshot.val();
