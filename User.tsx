@@ -5,7 +5,7 @@ import { firebaseAuth } from "./FirebaseConfig";
 import { firestore } from "./FirebaseConfig";
 
 interface QuestionAnswer {
-  question: string, answer: string
+  question: string, answer: string, dbKey: string
 }
 
 export default class User {
@@ -35,9 +35,11 @@ export default class User {
       });
 
       // Add user to database
-      firestore.collection('Users').doc(email).set({
-        // DATA FIELDS GO HERE
-      });
+      var userInfo;
+      for (let qa of questionAnswers) {
+        userInfo[qa.dbKey] = qa.answer;
+      }
+      firestore.collection('Users').doc(email).set(userInfo);
 
       await AsyncStorage.setItem('auth', password);
       return new User(email, questionAnswers);
