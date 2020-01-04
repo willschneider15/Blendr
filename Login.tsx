@@ -55,9 +55,11 @@ export default class LoginScreen extends Component<
         <Text>Blendr</Text>
         <Text>{this.state.loginError}</Text>
         <TextInput
+          placeholder='Email'
           onChangeText={email => this.setState({ email: email })}
         ></TextInput>
         <TextInput
+          placeholder='Password'
           onChangeText={password => this.setState({ password: password })}
         ></TextInput>
         <Button title="Submit" onPress={this.submit} />
