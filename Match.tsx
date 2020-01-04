@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import data from "./secrets.json";
-import axios, {AxiosResponse} from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { View, Text, Image, Button, AsyncStorage } from "react-native";
 import ViewButton from "./ViewButton";
 import User from "./User";
+import { firestore } from "./FirebaseConfig";
 
 interface HomeScreenProps {
   navigation;
@@ -26,7 +27,7 @@ const LOGO =
 class MatchScreen extends Component<
   HomeScreenProps,
   HomeScreenState
-> {
+  > {
 
   constructor(props) {
     super(props);
@@ -60,13 +61,50 @@ class MatchScreen extends Component<
   }
 
   match = async () => {
-    const otherUserEmail = 'test@test.com';
-    return {
-      currentUser: AsyncStorage.getItem('email').then(User.getUser),
-      otherUser: await User.getUser(otherUserEmail),
-      location: this.chooseLoc(),
-      time: this.chooseTime(),
-    };
+    let currEmail = await AsyncStorage.getItem('email');
+
+    // Find domain of current user
+    let atSym = currEmail.indexOf('@');
+    let domain = currEmail.substring(atSym + 1);
+
+    // Check if document exists for domain
+    firestore.collection('IncomingMatches').doc(domain).get().then(doc => {
+      if (doc.exists) {
+        // Create match using email field
+        let otherEmail = doc.get('email');
+        firestore.collection('Matches').doc(currEmail + '+' + otherEmail).set({
+          user1: currEmail,
+          user2: otherEmail,
+          location: this.chooseLoc(),
+          when: this.chooseTime(),
+          completed: false,
+        });
+
+        // Add match ID for both users
+        firestore.collection('Users').doc(currEmail).update({
+          match: currEmail + '+' + otherEmail
+        });
+        firestore.collection('Users').doc(otherEmail).update({
+          match: currEmail + '+' + otherEmail
+        });
+
+        // TODO: Navigate to postMatch page
+      } else {
+        // Add document with email field
+        let waitingPerson = { email: currEmail };
+        firestore.collection('IncomingMatches').doc(domain).set(waitingPerson);
+        // WAIT FUNCTIONALITY GOES HERE...send user to waiting screen
+        while (true) {
+          setTimeout(1000, () => {
+            firestore.collection('IncomingMatches').doc(domain).get().then(doc => {
+              if (doc.exists) {
+                // TODO: Navigate to postMatch pafge
+              } 
+            });
+          });
+        }
+      }
+    });
   }
 
   chooseTime() {
@@ -78,12 +116,12 @@ class MatchScreen extends Component<
     return axios.get(`https://api.yelp.com/v3/businesses/search?location=WestLake%Ohio`, {
       headers: {
         Authorization: `Bearer ${data.yelpKey}`
-    },
+      },
       params: {
         limit: 1,
         categories: 'coffee',
         //add functionality to check if shop is open at given time
-    }
+      }
     });
   }
 
@@ -116,4 +154,4 @@ class MatchScreen extends Component<
   // }
 }
 
-export {MatchScreen as default, MatchObject};
+export { MatchScreen as default, MatchObject };
