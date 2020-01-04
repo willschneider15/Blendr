@@ -1,9 +1,10 @@
 import Base64 from "base-64";
 import { Image, AsyncStorage } from "react-native";
 import { database } from "firebase";
-var firebase = require("firebase/app");
+import { firebaseAuth } from "./FirebaseConfig";
 
-class User {
+
+export default class User {
   private email: string;
   private questionAnswers: string[];
   private image?: Image;
@@ -22,12 +23,13 @@ class User {
   
   public static async createUser(email: string, password: string, questionAnswers: string[]): Promise<User> {
       // Attempt to create user in Firebase
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(error => {
+      firebaseAuth.auth().createUserWithEmailAndPassword(email, password).catch(error => {
         // TODO: Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
       });
+
       await AsyncStorage.setItem('auth', password);
       return new User(email, questionAnswers);
   }
