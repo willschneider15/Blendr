@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import data from "./secrets.json";
 import axios, {AxiosResponse} from 'axios';
-import { View, Text, Image, Button } from "react-native";
+import { View, Text, Image, Button, AsyncStorage } from "react-native";
 import ViewButton from "./ViewButton";
 import User from "./User";
 
@@ -15,7 +15,7 @@ interface HomeScreenState {
 
 interface MatchObject {
   currentUser: Promise<User>;
-  matchedUser: Promise<User>;
+  otherUser: Promise<User>;
   location: Promise<AxiosResponse<any>>;
   time: Date;
 }
@@ -59,12 +59,13 @@ class MatchScreen extends Component<
     this.props.navigation.navigate("postMatchScreen");
   }
 
-  match: Promise<MatchObject> = async () => {
-    const time = this.chooseTime();
-    this.chooseLoc();
-    await new Promise(resolve => setTimeout(resolve, 1000));
+  match = () => {
+    const otherUserEmail = 'test@test.com';
     return {
-      User.
+      currentUser: AsyncStorage.getItem('email').then(User.getUser),
+      otherUser: User.getUser(otherUserEmail),
+      location: this.chooseLoc(),
+      time: this.chooseTime(),
     };
   }
 
