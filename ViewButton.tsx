@@ -9,6 +9,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import {MatchObject} from "./Match";
 
 const DUCK =
   "https://cdn.discordapp.com/attachments/654373638065225731/662870509750452244/logoTest.gif";
@@ -36,7 +37,7 @@ class MatchJob {
 
 interface ViewButtonProps {
   onMatchFound(matchObject): void;
-  matchFunc(): Promise<void>
+  matchFunc(): Promise<MatchObject>
 }
 
 interface ViewButtonState {

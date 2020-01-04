@@ -3,6 +3,7 @@ import data from "./secrets.json";
 import axios, {AxiosResponse} from 'axios';
 import { View, Text, Image, Button } from "react-native";
 import ViewButton from "./ViewButton";
+import User from "./User";
 
 interface HomeScreenProps {
   navigation;
@@ -22,7 +23,7 @@ interface MatchObject {
 const LOGO =
   "https://cdn.discordapp.com/attachments/654373638065225731/662870509750452244/logoTest.gif";
 
-export default class MatchScreen extends Component<
+class MatchScreen extends Component<
   HomeScreenProps,
   HomeScreenState
 > {
@@ -58,17 +59,20 @@ export default class MatchScreen extends Component<
     this.props.navigation.navigate("postMatchScreen");
   }
 
-  match = async () => {
+  match: Promise<MatchObject> = async () => {
     const time = this.chooseTime();
     this.chooseLoc();
     await new Promise(resolve => setTimeout(resolve, 1000));
+    return {
+      User.
+    };
   }
 
   chooseTime() {
     const currentTime = new Date();
     return new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDay(), 18);
   }
-  
+
   chooseLoc() {
     return axios.get(`https://api.yelp.com/v3/businesses/search?location=WestLake%Ohio`, {
       headers: {
@@ -110,3 +114,5 @@ export default class MatchScreen extends Component<
   //   });
   // }
 }
+
+export {MatchScreen as default, MatchObject};
