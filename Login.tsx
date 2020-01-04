@@ -21,6 +21,11 @@ export default class LoginScreen extends Component<
     if (LoginScreen.loggedIn) {
       props.navigation.navigate("app");
     }
+    this.state = {
+      loginError: '',
+      email: '',
+      password: '',
+    };
   }
 
   static get loggedIn() {
