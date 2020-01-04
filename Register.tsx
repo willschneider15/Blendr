@@ -27,6 +27,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
       onChangeText={text => {
         this.answers[index] = text;
       }}
+      key={index}
     />
   ));
 
@@ -63,7 +64,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
           placeholder="First Name"
           onChangeText={firstName => this.setState({ firstName: firstName })}
         ></TextInput>
-        {questions}
+        {this.elements}
         <Button title="Submit" onPress={this.submit}></Button>
       </View>
     );
