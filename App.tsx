@@ -1,34 +1,39 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createAppContainer, NavigationStackRouterConfig } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import LoginScreen from './Login';
-import RegisterScreen from './Register';
-import MatchScreen from './Match';
-import postMatchScreen from './postMatch';
-import HomeScreen from './Home'
+import React from "react";
+import { StyleSheet, Text, View, AsyncStorage } from "react-native";
+import {
+  createAppContainer,
+  NavigationStackRouterConfig
+} from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import User from "./User";
+import LoginScreen from "./Login";
+import RegisterScreen from "./Register";
+import MatchScreen from "./Match";
+import postMatchScreen from "./postMatch";
+import HomeScreen from "./Home";
 
 const config: NavigationStackRouterConfig = {
-  initialRouteName: "MatchScreen"
-}
+  initialRouteName: "HomeScreen"
+};
 
-const AppNavigator = createStackNavigator({
-  MatchScreen: {
-    screen: MatchScreen
+const AppNavigator = createStackNavigator(
+  {
+    MatchScreen: {
+      screen: MatchScreen
+    },
+    postMatchScreen: {
+      screen: postMatchScreen
+    },
+    HomeScreen: {
+      screen: HomeScreen
+    },
+    LoginScreen: {
+      screen: LoginScreen
+    },
+    RegisterScreen: {
+      screen: RegisterScreen
+    }
   },
-  postMatchScreen: {
-    screen: postMatchScreen
-  },
-  HomeScreen: {
-    screen: HomeScreen,
-  },
-  LoginScreen: {
-    screen: LoginScreen,
-  },
-  RegisterScreen: {
-    screen: RegisterScreen
-  }
-  
-}, config);
-
+  config
+);
 export default createAppContainer(AppNavigator);

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import data from "./secrets.json";
 import axios from 'axios';
 import { View, Text, Image, Button } from "react-native";
+import ViewButton from "./ViewButton";
 
 interface HomeScreenProps {
   navigation;
@@ -40,9 +41,14 @@ export default class MatchScreen extends Component<
       <View>
         <Text>{this.state.date}</Text>
         <Image style={{ width: 70, height: 70 }} source={{ uri: LOGO }}></Image>
-        <Button title="Start Match" onPress={this.match} />
+        <ViewButton matchFunc={this.match} onMatchFound={this.onMatchFound} />
       </View>
     );
+  }
+
+  onMatchFound = matchInfo => {
+    console.info('matchInfo:', matchInfo);
+    this.props.navigation.navigate("postMatchScreen");
   }
 
   match = async () => {
@@ -59,7 +65,7 @@ export default class MatchScreen extends Component<
     //   .catch(ifFailure);
 
     this.getCurrentDate();
-    this.props.navigation.navigate("postMatchScreen");
+    await new Promise(resolve => setTimeout(resolve, 1000));
   }
 
   getCurrentDate() {
@@ -82,9 +88,7 @@ export default class MatchScreen extends Component<
     }
     })
     .then((res) => {
-      console.log(res.data.name)
-      
-
+      console.log(res.data.businesses[0].name)
     })
     .catch((err) => {
       console.log ('No locations were found')
