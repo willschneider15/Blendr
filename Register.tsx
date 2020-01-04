@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, TextInput, Button, AsyncStorage } from "react-native";
 import User from "./User";
 
-const questions = [];
+const questions = ["test"];
 
 interface RegisterProps {
   navigation;
