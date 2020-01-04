@@ -19,7 +19,7 @@ interface RegisterState {
   firstName: string;
 }
 
-class Register extends Component<RegisterProps, RegisterState> {
+export default class Register extends Component<RegisterProps, RegisterState> {
   answers = new Array(questions.length);
   elements = questions.map((question, index) => (
     <TextInput
