@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Image, Button } from "react-native";
+import ViewButton from "./ViewButton";
 
 interface HomeScreenProps {
   navigation;
@@ -33,6 +34,7 @@ export default class HomeScreen extends Component<HomeScreenProps> {
           title="Register"
           onPress={() => this.props.navigation.navigate("RegisterScreen")}
         />
+        <ViewButton />
       </View>
     );
   }
