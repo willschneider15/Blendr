@@ -68,7 +68,7 @@ export default class MatchScreen extends Component<
     const currentTime = new Date();
     return new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDay(), 18);
   }
-
+  
   chooseLoc() {
     return axios.get(`https://api.yelp.com/v3/businesses/search?location=WestLake%Ohio`, {
       headers: {
