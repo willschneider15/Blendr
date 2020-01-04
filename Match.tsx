@@ -11,7 +11,7 @@ export default class MatchScreen extends Component<HomeScreenProps> {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     return (
       <View>
