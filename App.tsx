@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, NavigationStackRouterConfig } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './Login';
 import RegisterScreen from './Register';
 import MatchScreen from './Match';
 import HomeScreen from './Home'
 
-
+const config: NavigationStackRouterConfig = {
+  initialRouteName: "HomeScreen"
+}
 
 const AppNavigator = createStackNavigator({
   HomeScreen: {
@@ -22,6 +24,6 @@ const AppNavigator = createStackNavigator({
   MatchScreen: {
     screen: MatchScreen
   }
-});
+}, config);
 
 export default createAppContainer(AppNavigator);
