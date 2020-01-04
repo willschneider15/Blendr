@@ -35,7 +35,7 @@ class MatchJob {
 }
 
 interface ViewButtonProps {
-  onMatchFound(): void;
+  onMatchFound(matchObject): void;
 }
 
 interface ViewButtonState {

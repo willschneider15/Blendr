@@ -34,7 +34,7 @@ export default class HomeScreen extends Component<HomeScreenProps> {
           title="Register"
           onPress={() => this.props.navigation.navigate("RegisterScreen")}
         />
-        <ViewButton />
+        <ViewButton onMatchFound={console.info}/>
       </View>
     );
   }
