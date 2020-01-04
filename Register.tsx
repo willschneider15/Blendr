@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { View, TextInput, Button, AsyncStorage } from "react-native";
 import User from "./User";
 
-const questions = ["test"];
+// NEED TO UPDATE THESE TWO IN PARALLEL
+const questions = ["What is your role?", 
+                  "What school did you graduate from?", 
+                  "Where are you from?", 
+                  "How long have you been working for your company?"];
+const dbKeys = ["role", "school", "hometown", "experience"];
 
 interface RegisterProps {
   navigation;
@@ -34,6 +39,7 @@ class Register extends Component<RegisterProps, RegisterState> {
     answers.map((answer, i) => ({
       question: questions[i],
       answer: answer,
+      dbKey: dbKeys[i],
     }));
     User.createUser(email, password, firstName, answers);
     AsyncStorage.setItem("email", email);
