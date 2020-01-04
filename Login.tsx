@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, AsyncStorage, TextInput, Button, Text } from "react-native";
+import { View, AsyncStorage, TextInput, Button, Text, Alert } from "react-native";
 import User from "./User";
 
 interface LoginScreenProps {
@@ -18,29 +18,6 @@ export default class LoginScreen extends Component<
 > {
   constructor(props: LoginScreenProps) {
     super(props);
-    if (LoginScreen.loggedIn) {
-      props.navigation.navigate("app");
-    }
-    this.state = {
-      loginError: '',
-      email: '',
-      password: '',
-    };
-    this.state = {
-      loginError: '',
-      email: '',
-      password: '',
-    };
-    this.state = {
-      loginError: '',
-      email: '',
-      password: '',
-    };
-    this.state = {
-      loginError: '',
-      email: '',
-      password: '',
-    };
     this.state = {
       loginError: '',
       email: '',
@@ -48,23 +25,19 @@ export default class LoginScreen extends Component<
     };
   }
 
-  static get loggedIn() {
-    return new Promise(resolve => {
-      AsyncStorage.getItem("auth", error =>
-        error ? resolve(false) : resolve(true)
-      );
-    });
-  }
-
-  submit() {
+  submit = () => {
     const { email, password } = this.state;
     User.authenticate(email, password).then(result => {
       if (result.success) {
         AsyncStorage.setItem('email', email);
         AsyncStorage.setItem('auth', password);
-        this.props.navigation.navigate("app");
+        this.props.navigation.navigate("MatchScreen");
       } else {
-        this.setState({ loginError: result.error });
+        //this.setState({ loginError: result.error });
+        Alert.alert(
+          'Sorry!',
+          'Login failed',
+        );
       }
     });
   }
@@ -75,15 +48,19 @@ export default class LoginScreen extends Component<
         <Text>Blendr</Text>
         <Text>{this.state.loginError}</Text>
         <TextInput
-          placeholder='Email'
+      
           onChangeText={email => this.setState({ email: email })}
         ></TextInput>
         <TextInput
-          placeholder='Password'
           onChangeText={password => this.setState({ password: password })}
         ></TextInput>
-        <Button title="Submit" onPress={this.submit} />
+        <Button title="Submit" onPress={this.log} />
       </View>
     );
+  }
+
+  log(){
+    this.submit;
+    this.props.navigation.navigate("MatchScreen");
   }
 }
