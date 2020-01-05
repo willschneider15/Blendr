@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, AsyncStorage, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, AsyncStorage, Alert, TouchableOpacity } from 'react-native';
 import User from "./User";
 
 interface LoginScreenProps {
@@ -63,7 +63,9 @@ export default class LoginScreen extends Component<
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({password:text})}/>
         </View>
-        <Button title="Submit" onPress={this.submit} />
+        <TouchableOpacity onPress={this.submit} style={styles.loginBtn}>
+            <Text style={styles.loginText}>Login</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -97,136 +99,18 @@ const styles = StyleSheet.create({
     color:"white",
     fontFamily: "Avenir",
   },
+  loginBtn:{
+    width:"30%",
+    backgroundColor:"#F08B1C",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",                         
+    justifyContent:"center",
+    marginTop:20,
+    marginBottom:10
+  },
+  loginText:{
+    color:"white",
+    fontFamily: "Avenir",
+  }
 });
-// import React, { Component } from "react";
-// import { StyleSheet, View, AsyncStorage, TextInput, Button, Text, Alert } from "react-native";
-// import User from "./User";
-
-// interface LoginScreenProps {
-//   navigation;
-// }
-
-// interface LoginScreenState {
-//   email: string;
-//   password: string;
-//   loginError: string;
-// }
-
-// export default class LoginScreen extends Component<
-//   LoginScreenProps,
-//   LoginScreenState
-// > {
-//   constructor(props: LoginScreenProps) {
-//     super(props);
-//     this.state = {
-//       loginError: '',
-//       email: '',
-//       password: '',
-//     };
-//   }
-
-//   submit = () => {
-//     const { email, password } = this.state;
-//     User.authenticate(email, password).then(result => {
-//       if (result.success) {
-//         AsyncStorage.setItem('email', email);
-//         AsyncStorage.setItem('auth', password);
-//         this.props.navigation.navigate("MatchScreen");
-//       } else {
-//         //this.setState({ loginError: result.error });
-//         Alert.alert(
-//           'Sorry!',
-//           'Login failed',
-//         );
-//       }
-//     });
-//   }
-
-//   styles = StyleSheet.create({
-//     username: {
-//       color: 'blue',
-//       fontWeight: 'bold'
-//     }
-    
-//   }) 
-
-//   render() {
-//     return (
-//       <View>
-//         <Text>{this.state.loginError}</Text>
-//         <Text> UserName</Text>
-//         <TextInput 
-//         style = {styles.textInputStyle}
-//         onChangeText={email => this.setState({ email: email })}
-//         ></TextInput>
-//         <Text>Password</Text>
-//         <TextInput
-//           style = {styles.textInputStyle}
-//           onChangeText={password => this.setState({ password: password })}
-//         ></TextInput>
-//         <Button title="Submit" onPress={this.log} />
-//       </View>
-//     );
-//   }
-
-//   log(){
-//     this.submit;
-//     this.props.navigation.navigate("MatchScreen");
-//   }
-// }
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//   },
-
-//   logo: {
-//     width: 100,
-//     height: 140
-//   },
-
-//   logoContainer: {
-//     alignItems: "center",
-//     flexGrow: 1,
-//     justifyContent: "center"
-//   },
-
-//   formContainer: {
-//     padding: 20
-//   },
-
-//   input: {
-//     height: 40,
-//     backgroundColor: "green",
-//     marginBottom: 20,
-//     color: "black"
-//   },
-
-//   title: {
-//     color: "white",
-//     marginTop: 25,
-//     textAlign: "center"
-//   },
-
-//   buttonSigin: {
-//     backgroundColor: "green",
-//     paddingVertical: 37
-//   },
-
-//   buttonText: {
-//     textAlign: "center",
-//     color: "white",
-//     fontWeight: "700"
-//   },
-
-//   textInputStyle: {  
-//     borderColor: '#9a73ef',  
-//     borderWidth: 1,  
-//     height: 40,  
-//     margin: 20,  
-//     padding: 10,  
-//   },
-
-//   textOutputStyle: {  
-//     fontSize: 20  
-//   } 
-// });
