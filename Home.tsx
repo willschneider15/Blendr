@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+<<<<<<< HEAD
+import { View, Text, Image, Button, StyleSheet } from "react-native";
+import { TextInput } from "react-native-gesture-handler";
+=======
 import { View, Text, Image, Button } from "react-native";
 import ViewButton from "./ViewButton";
+>>>>>>> 2d76fa7440a90b39ab4c58c1865655e898cb9873
 
 interface HomeScreenProps {
   navigation;
@@ -14,6 +19,30 @@ export default class HomeScreen extends Component<HomeScreenProps> {
   }
   render() {
     return (
+<<<<<<< HEAD
+      <View style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Image style={styles.logo} source={{ uri: LOGO }} />
+          <Text style={styles.title} />
+        </View>
+
+        <View style={styles.formContainer}>
+          <TextInput style={styles.input} />
+
+          <TextInput
+            placeholder="Usename"
+            placeholderTextColor="Dark Grey"
+            style={styles.input}
+          />
+
+          <TextInput placeholder="Password" style={styles.input} />
+          <View style={styles.buttonSigin}>
+            <Button title="the button">
+              <Text style={styles.buttonText}>Sign In</Text>
+            </Button>
+          </View>
+        </View>
+=======
       <View
         style={{
           flex: 1,
@@ -35,7 +64,53 @@ export default class HomeScreen extends Component<HomeScreenProps> {
           onPress={() => this.props.navigation.navigate("RegisterScreen")}
         />
 
+>>>>>>> 2d76fa7440a90b39ab4c58c1865655e898cb9873
       </View>
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white"
+  },
+
+  logo: {
+    width: 100,
+    heigth: 140
+  },
+
+  logoContainer: {
+    alignItems: "center",
+    flexGrow: 1,
+    justifyContent: "center"
+  },
+
+  formContainer: {
+    padding: 20
+  },
+
+  input: {
+    height: 40,
+    backgroundColor: "green",
+    marginBottom: 20,
+    color: "black"
+  },
+
+  title: {
+    color: "dark grey",
+    marginTop: 25,
+    textAlign: "center"
+  },
+
+  buttonSigin: {
+    backgroundColor: "green",
+    paddingVertical: 37
+  },
+
+  buttonText: {
+    textAlign: "center",
+    color: "dark grey",
+    fontWeight: "700"
+  }
+});
