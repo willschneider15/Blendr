@@ -27,7 +27,7 @@ export default class PostMatchScreen extends Component<PostMatchScreenProps> {
 
   async render() {
     const match = this.props.matchObj;
-    const otherUser = match.user1.email === (await AsyncStorage.getItem("email")) ? match.user2 : match.user1; 
+    const otherUser = match.user1.email === await AsyncStorage.getItem('email') ? match.user2 : match.user1; 
     return (
       <View>
         <Text>You've found a match!</Text>
