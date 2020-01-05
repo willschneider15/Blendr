@@ -31,7 +31,7 @@ const questionData = [
   },
   {
     question: "How long have you been working?",
-    key: "experience"
+    key: "experience",
   },
 ];
 
@@ -40,13 +40,13 @@ interface RegisterProps {
 }
 
 interface RegisterState {
-  answers // Map from dbKey to answer
+  answers; // Map from dbKey to answer
 }
 
 export default class Register extends Component<RegisterProps, RegisterState> {
   listGenerator = data => {
     return (
-      <TextInput placeholder={question} onChange={} />
+      <TextInput placeholder={data.question} onChange={()=>{}} />
     )
   }
 
@@ -57,7 +57,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
     }
   }
   
-  render() {
+  async render() {
     return (
       <KeyboardAvoidingView>
         <FlatList 
@@ -80,6 +80,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
       return prevState;
     });
   }
+}
 
   // submit = async () => {
   //   let { email, password, firstName, answers } = this.state;
