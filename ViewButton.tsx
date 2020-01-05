@@ -11,11 +11,10 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {MatchObject} from "./Match";
 
-const DUCK =
-  "https://cdn.discordapp.com/attachments/654373638065225731/662870509750452244/logoTest.gif";
-const NON_MOVING_DUCK =
-  "https://cdn.discordapp.com/attachments/654373638065225731/663095334620233770/logo4.png";
-
+const LOADING =
+  "https://media.giphy.com/media/12yixaK3jASpb2/giphy.gif"
+const NOT_LOADING = 
+  "https://cdn.discordapp.com/attachments/654373638065225731/663244447768903690/Screen_Shot_2020-01-04_at_11.53.21_PM.png";
 class MatchJob {
   running: boolean;
 
@@ -88,7 +87,7 @@ export default class ViewButton extends Component<ViewButtonProps, ViewButtonSta
         <View style={{ alignContent: "center" }}>
           <Image
             style={{ width: 70, height: 70 }}
-            source={{ uri: DUCK }}
+            source={{ uri: LOADING }}
           ></Image>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             <Text>Searching </Text>
@@ -102,7 +101,7 @@ export default class ViewButton extends Component<ViewButtonProps, ViewButtonSta
           <View>
             <Image
               style={{ width: 70, height: 70 }}
-              source={{ uri: NON_MOVING_DUCK }}
+              source={{ uri: NOT_LOADING }}
             ></Image>
             <Text>Find Match</Text>
             <Text
