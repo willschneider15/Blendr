@@ -108,14 +108,19 @@ export default class Register extends Component<RegisterProps, RegisterState> {
 
   render() {
     return (
-      <View>
-        <TextInput
-          placeholder="Email"
-
-          onChangeText={email => this.setState({ email: email })}
-        ></TextInput>
-        <TextInput
-          placeholder="Password"
+      <Grid>
+        <Row style={styles.row}>
+          <Col><Text style={styles.text}>Email</Text></Col>
+          <Col><TextInput
+            style={styles.input}
+            onChangeText={email => this.setState({ email: email })}
+          ></TextInput></Col>
+        </Row>
+        <Row style={styles.row}>
+          <Col><Text style={styles.text}>Password</Text></Col>
+          <Col><TextInput
+          style={styles.input}
+          secureTextEntry={true}
           onChangeText={password => this.setState({ password: password })}
           ></TextInput></Col>
         </Row>
@@ -126,9 +131,9 @@ export default class Register extends Component<RegisterProps, RegisterState> {
             onChangeText={firstName => this.setState({ firstName: firstName })}
           ></TextInput></Col>
         </Row>
-        {this.elements}        
-        <Button title="Submit" onPress={this.submit}></Button>
-      </View>
+        {this.elements}
+        <Row style={styles.row}><View style={styles.button} ><Button title="Submit" color='white' onPress={this.submit}></Button></View></Row>
+      </Grid>
     );
   }
 }
