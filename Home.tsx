@@ -18,7 +18,7 @@ export default class HomeScreen extends Component<HomeScreenProps> {
       <View style={styles.container}>
           <View style={styles.logoContainer}>
           <Image style={styles.logo} source={{ uri: LOGO }} />
-          <Text style={styles.title}>BLENDR</Text>
+          <Text style={styles.title}>Blendr</Text>
         </View>
 
       {/*
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
 
   title: {
     color: '#fb5b5a',
-    fontSize: 40,
-    marginTop: 25,
+    fontSize: 50,
+    marginTop: 10,
     textAlign: "center",
     fontWeight: 'bold',
     fontFamily: "Avenir",
