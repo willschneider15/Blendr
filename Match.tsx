@@ -70,91 +70,109 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
     let proposedLocation = this.chooseLoc();
 
     // Check if document exists for domain
-    firestore
-      .collection("IncomingMatches")
-      .doc(domain)
-      .get()
-      .then(async doc => {
-        if (doc.exists) {
-          // Create match using email field
-          let otherEmail = doc.get("email");
-          let time = this.chooseTime();
-          firestore
-            .collection("Matches")
-            .doc(currEmail + "+" + otherEmail)
-            .set({
-              user1: currEmail,
-              user2: otherEmail,
+    return await new Promise<MatchObject>(async (resolve, reject) => {
+      firestore
+        .collection("IncomingMatches")
+        .doc(domain)
+        .get()
+        .then(async doc => {
+          if (doc.exists) {
+            // Create match using email field
+            let otherEmail = doc.get("email");
+            let time = this.chooseTime();
+            firestore
+              .collection("Matches")
+              .doc(currEmail + "+" + otherEmail)
+              .set({
+                user1: currEmail,
+                user2: otherEmail,
+                location: await proposedLocation,
+                when: time,
+                completed: false
+              });
+
+            // Add match ID for both users
+            firestore
+              .collection("Users")
+              .doc(currEmail)
+              .update({
+                match: currEmail + "+" + otherEmail
+              });
+            firestore
+              .collection("Users")
+              .doc(otherEmail)
+              .update({
+                match: currEmail + "+" + otherEmail
+              });
+
+            // TODO: Navigate to postMatch page
+            const result = {
+              user1: await User.getUser(currEmail),
+              user2: await User.getUser(otherEmail),
               location: await proposedLocation,
-              when: time,
-              completed: false
-            });
-
-          // Add match ID for both users
-          firestore
-            .collection("Users")
-            .doc(currEmail)
-            .update({
-              match: currEmail + "+" + otherEmail
-            });
-          firestore
-            .collection("Users")
-            .doc(otherEmail)
-            .update({
-              match: currEmail + "+" + otherEmail
-            });
-
-          // TODO: Navigate to postMatch page
-          const result = {
-            user1: await User.getUser(currEmail),
-            user2: await User.getUser(otherEmail),
-            location: await proposedLocation,
-            when: time
-          };
-          console.log(`Found match for ${currEmail} in ${new Date().getMilliseconds() - time1} ms:`, result);
-          return result;
-        } else {
-          // Add document with email field
-          let waitingPerson = { email: currEmail };
-          firestore
-            .collection("IncomingMatches")
-            .doc(domain)
-            .set(waitingPerson);
-          // WAIT FUNCTIONALITY GOES HERE...send user to waiting screen
-          let success = false;
-          let doc;
-          for (let i = 0; i < 20; i++) {
-            doc = await firestore
+              time: time
+            };
+            console.log(
+              `Found match for ${currEmail} in ${new Date().getMilliseconds() -
+                time1} ms:`,
+              result
+            );
+            resolve(result);
+          } else {
+            // Add document with email field
+            let waitingPerson = { email: currEmail };
+            firestore
               .collection("IncomingMatches")
               .doc(domain)
-              .get();
-            if (!doc.exists) {
-              // TODO: Navigate to postMatch page
-              firestore
+              .set(waitingPerson);
+            // WAIT FUNCTIONALITY GOES HERE...send user to waiting screen
+            let success = false;
+            let doc;
+            for (let i = 0; i < 20; i++) {
+              doc = await firestore
                 .collection("IncomingMatches")
                 .doc(domain)
-                .delete();
-              success = true;
-              break;
+                .get();
+              if (!doc.exists) {
+                // TODO: Navigate to postMatch page
+                firestore
+                  .collection("IncomingMatches")
+                  .doc(domain)
+                  .delete();
+                success = true;
+                break;
+              }
             }
-          }
-          if (!success) {
-            throw new Error("Timed out");
-          }
-          const matchDoc = firestore.collection("Users").doc(currEmail).get().then(data => {
-            return firestore.collection("Match").doc(data.get("match")).get();
-          });
+            if (!success) {
+              console.error("Timed out!");
+              reject("Timed out!");
+            }
+            const matchDoc = firestore
+              .collection("Users")
+              .doc(currEmail)
+              .get()
+              .then(data => {
+                return firestore
+                  .collection("Match")
+                  .doc(data.get("match"))
+                  .get();
+              });
 
-          const result = {
-            user1: await matchDoc.then(doc => User.getUser(doc.get("user1"))),
-            user2: await matchDoc.then(doc => User.getUser(doc.get("user2"))),
-            location: await matchDoc.then(doc => doc.get("location")),
-            when: await matchDoc.then(doc => doc.get("when")),
+            const result = {
+              user1: await matchDoc.then(doc => User.getUser(doc.get("user1"))),
+              user2: await matchDoc.then(doc => User.getUser(doc.get("user2"))),
+              location: await matchDoc.then(doc => doc.get("location")),
+              time: await matchDoc.then(doc => doc.get("when"))
+            };
+            console.log(
+              `Found match for ${currEmail} in ${time1 -
+                new Date().getMilliseconds()} ms:`,
+              result
+            );
+            resolve(result);
           }
-          console.log(`Found match for ${currEmail} in ${new Date().getMilliseconds() -time1} ms:`, result);
-          return result;
-        }
-      });
+        });
+    });
   };
 
   chooseTime() {
@@ -180,7 +198,7 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
         }
       })
       .then(res => {
-        console.log("res", res.data.businesses[0].name);
+        console.log("res", res.data.businesses[0]);
         return res.data.businesses[0].name;
       })
       .catch(err => {

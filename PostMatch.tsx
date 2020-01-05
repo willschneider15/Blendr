@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Image, Button } from "react-native";
 import { MatchObject } from "./Match";
+import {MapView} from "expo";
 
 interface PostMatchScreenProps {
   navigation;
@@ -18,8 +19,11 @@ function MatchInfo(props: {match: MatchObject, currentUserEmail: string}) {
 }
 
 export default class PostMatchScreen extends Component<PostMatchScreenProps> {
+  matchObj;
+
   constructor(props: Readonly<PostMatchScreenProps>) {
     super(props);
+    this.matchObj = props.navigation.getParam("matchObj")
     const matchObj = props.matchObj;
     console.log('matchObj', matchObj);
   }
@@ -28,7 +32,7 @@ export default class PostMatchScreen extends Component<PostMatchScreenProps> {
     return (
       <View>
         <Text>You've found a match!</Text>
-        <MatchInfo match={this.props.matchObj} currentUserEmail="Abounding05@gmail.com" />
+        <MatchInfo match={this.matchObj} currentUserEmail="Abounding05@gmail.com" />
       </View>
     );
   }
