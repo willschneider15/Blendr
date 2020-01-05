@@ -55,6 +55,8 @@ export default class Register extends Component<RegisterProps, RegisterState> {
       answer: answer,
       dbKey: dbKeys[i],
     }));
+    console.log('state', this.state);
+    console.log('newAnswers', newAnswers);
     const res = await User.createUser(email, password, firstName, newAnswers);
     // If login succeeds, navigate to homepage
     if (res) {

@@ -9,11 +9,11 @@ import User from "./User";
 import LoginScreen from "./Login";
 import RegisterScreen from "./Register";
 import MatchScreen from "./Match";
-//import postMatchScreen from "./PostMatch";
+import PostMatchScreen from "./PostMatch";
 import HomeScreen from "./Home";
 
 const config: NavigationStackRouterConfig = {
-  initialRouteName: "HomeScreen"
+  initialRouteName: "MatchScreen"
 };
 
 const AppNavigator = createStackNavigator(
@@ -21,9 +21,9 @@ const AppNavigator = createStackNavigator(
     MatchScreen: {
       screen: MatchScreen
     },
-    // postMatchScreen: {
-    //   screen: postMatchScreen
-    // },
+    PostMatchScreen: {
+      screen: PostMatchScreen
+    },
     HomeScreen: {
       screen: HomeScreen
     },
