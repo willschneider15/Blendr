@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 export default class App extends React.Component {
   state={
@@ -11,11 +11,13 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Text style={styles.logo}>Blendr</Text>
         <View style={styles.inputView} >
+       
           <TextInput  
             style={styles.inputText}
             placeholder="Email..." 
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({email:text})}/>
+            
         </View>
         <View style={styles.inputView} >
           <TextInput  
@@ -33,7 +35,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#003f5c',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
   },
   inputView:{
     width:"80%",
-    backgroundColor:"#465881",
+    backgroundColor:"#7FA2B6",
     borderRadius:25,
     height:50,
     marginBottom:20,

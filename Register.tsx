@@ -79,6 +79,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
       <View>
         <TextInput
           placeholder="Email"
+
           onChangeText={email => this.setState({ email: email })}
         ></TextInput>
         <TextInput
@@ -90,6 +91,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
           onChangeText={firstName => this.setState({ firstName: firstName })}
         ></TextInput>
         {this.elements}
+        
         <Button title="Submit" onPress={this.submit}></Button>
       </View>
     );
