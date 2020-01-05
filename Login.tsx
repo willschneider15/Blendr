@@ -1,11 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView } from 'react-native';
+import User from './User';
+import { NavigationStackProp } from 'react-navigation-stack';
 
-export default class App extends React.Component {
-  state={
-    email:"",
-    password:""
+
+interface LoginScreenProps {
+  navigation: NavigationStackProp;
+}
+
+interface LoginScreenState {
+  email: string;
+  password: string;
+}
+
+export default class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState> {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+    };
   }
+
   render(){
     return (
       <View style={styles.container}>
@@ -27,8 +44,20 @@ export default class App extends React.Component {
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({password:text})}/>
         </View>
+        <KeyboardAvoidingView style={styles.loginButtonContainer}>
+          <Button title="Login" onPress={this.login} />
+        </KeyboardAvoidingView>
       </View>
     );
+  }
+
+  async login() {
+    const isAuthenticated = await User.authenticate(this.state.email, this.state.password);
+    if (isAuthenticated) {
+      this.props.navigation.navigate("");
+    } else {
+      alert("Invalid login credentials.");
+    }
   }
 }
 
@@ -37,7 +66,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  loginButtonContainer: {
+    width: "80%",
+    borderRadius: 1
   },
   logo:{
     fontWeight:"bold",
@@ -47,8 +79,8 @@ const styles = StyleSheet.create({
   },
   inputView:{
     width:"80%",
-    backgroundColor:"#7FA2B6",
-    borderRadius:25,
+    backgroundColor:"#F08B1C",
+    borderRadius: 1,
     height:50,
     marginBottom:20,
     justifyContent:"center",

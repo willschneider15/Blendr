@@ -6,9 +6,6 @@ interface PostMatchScreenProps {
   navigation;
   matchObj: MatchObject;
 }
-const LOGO =
-  "https://cdn.discordapp.com/attachments/654373638065225731/662870509750452244/logoTest.gif";
-
 
 function MatchInfo(props: {match: MatchObject, currentUserEmail: string}) {
   const match = props.match;
