@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     marginTop: 25,
     textAlign: "center",
-    fontWeight: '500',
+    fontWeight: 'bold',
   },
 
   buttonSigin: {
