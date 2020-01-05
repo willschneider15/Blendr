@@ -171,7 +171,6 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     textAlign: "center",
     fontWeight: 'bold',
-    fontFamily: "Avenir"
   },
 
   buttonSigin: {
@@ -227,7 +226,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     alignItems: "center",
     justifyContent: "center",
-    fontFamily: "Avenir",
     fontWeight: "bold",
 
   }

@@ -254,7 +254,6 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     textAlign: "center",
     fontWeight: 'bold',
-    fontFamily: "Avenir"
   },
 
   buttonSigin: {

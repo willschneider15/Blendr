@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     fontSize:50,
     color:"#fb5b5a",
     marginBottom:40,
-    fontFamily: "Avenir",
   },
   inputView:{
     width:"80%",
@@ -97,7 +96,6 @@ const styles = StyleSheet.create({
   inputText:{
     height:50,
     color:"white",
-    fontFamily: "Avenir",
   },
   loginBtn:{
     width:"30%",
@@ -111,6 +109,5 @@ const styles = StyleSheet.create({
   },
   loginText:{
     color:"white",
-    fontFamily: "Avenir",
   }
 });

@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#7FA2B6',
     marginBottom: 50,
-    fontFamily: "Avenir",
   },
 
   /*
@@ -98,7 +97,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center",
     fontWeight: 'bold',
-    fontFamily: "Avenir",
   },
 
   buttonSigin: {
@@ -142,6 +140,5 @@ const styles = StyleSheet.create({
 
   loginText:{
     color:"white",
-    fontFamily: "Avenir",
   }
 });
