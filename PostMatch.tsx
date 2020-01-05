@@ -6,9 +6,6 @@ interface PostMatchScreenProps {
   navigation;
   matchObj: MatchObject;
 }
-const LOGO =
-  "https://cdn.discordapp.com/attachments/654373638065225731/662870509750452244/logoTest.gif";
-
 
 function MatchInfo(props: {match: MatchObject, currentUserEmail: string}) {
   const match = props.match;
@@ -17,6 +14,7 @@ function MatchInfo(props: {match: MatchObject, currentUserEmail: string}) {
   return otherUser.getComponent(match.location);
 }
 
+
 export default class PostMatchScreen extends Component<PostMatchScreenProps> {
   matchObj;
 
@@ -24,12 +22,17 @@ export default class PostMatchScreen extends Component<PostMatchScreenProps> {
     super(props);
     this.matchObj = props.navigation.getParam("matchObj");
     const matchObj = props.matchObj;
+    const currentUserEmail = 
     console.log('matchObj', matchObj);
   }
 
   async render() {
     const match = this.props.matchObj;
+<<<<<<< HEAD
     const otherUser = match.user1.email === (await AsyncStorage.getItem("email")) ? match.user2 : match.user1; 
+=======
+    const otherUser = match.user1.email === await AsyncStorage.getItem('email') ? match.user2 : match.user1; 
+>>>>>>> 115e73f9ebe3705abe0880ab2a85607c32018d7e
     return (
       <View>
         <Text>You've found a match!</Text>

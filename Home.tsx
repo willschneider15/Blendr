@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, Image, Button, StyleSheet, TouchableOpacity} from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Button,
+  StyleSheet,
+  TouchableOpacity
+} from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 interface HomeScreenProps {
@@ -14,14 +21,14 @@ export default class HomeScreen extends Component<HomeScreenProps> {
   }
   render() {
     return (
-      
       <View style={styles.container}>
           <View style={styles.logoContainer}>
+
           <Image style={styles.logo} source={{ uri: LOGO }} />
           <Text style={styles.title}>Blendr</Text>
         </View>
 
-      {/*
+        {/*
         <View style={styles.formContainer}>
           <TextInput style={styles.input} />
 
@@ -50,8 +57,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center"
   },
 
   logo: {
@@ -98,8 +105,8 @@ const styles = StyleSheet.create({
     width: 150,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#7FA2B6',
-    justifyContent: 'center',
+    backgroundColor: "#7FA2B6",
+    justifyContent: "center",
     marginTop: 20,
     padding: 20
   },
@@ -108,9 +115,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#7FA2B6",
     height: 40,
-	  fontSize: 20,
+    fontSize: 20,
     fontWeight: "bold"
-    
   },
 
   loginBtn:{
