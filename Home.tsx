@@ -35,7 +35,13 @@ export default class HomeScreen extends Component<HomeScreenProps> {
       */}
           <View style={styles.buttonSigin}>
             <Button title="Login" onPress = {() => this.props.navigation.navigate("Login")}>
-              <Text style={styles.buttonText}>Sign In</Text>
+              <Text style={styles.buttonText}>Log In</Text>
+            </Button>
+          </View>
+
+          <View style={styles.buttonSigin}>
+            <Button title="Register" onPress = {() => this.props.navigation.navigate("Register")}>
+              <Text style={styles.buttonText}>Register</Text>
             </Button>
           </View>
         
@@ -78,7 +84,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     marginTop: 25,
     textAlign: "center",
-    frontWeight: '500',
+    fontWeight: '500',
   },
 
   buttonSigin: {
