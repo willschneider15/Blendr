@@ -80,7 +80,8 @@ export default class User {
         name: firstName,
         score: 0,
         lookingForMatch: false,
-        prevMatches: new Array<string>()
+        prevMatches: new Array<string>(),
+        image: Math.trunc(Math.random()*5+1),
       };
 
       // Add each answer response of user
