@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, Button, StyleSheet } from "react-native";
+import { View, Text, Image, Button, StyleSheet, TouchableOpacity} from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 interface HomeScreenProps {
@@ -16,7 +16,7 @@ export default class HomeScreen extends Component<HomeScreenProps> {
     return (
       
       <View style={styles.container}>
-        <View style={styles.logoContainer}>
+                                                    <View style={styles.logoContainer}>
           <Image style={styles.logo} source={{ uri: LOGO }} />
           <Text style={styles.title}>BLENDR</Text>
         </View>
@@ -33,15 +33,14 @@ export default class HomeScreen extends Component<HomeScreenProps> {
 
           <TextInput placeholder="Password" style={styles.input} />
       */}
-          <View style={styles.buttonSigin}>
-            <Button title="Login" onPress = {() => this.props.navigation.navigate("LoginScreen")}>
-              <Text style={styles.buttonText}>Sign In</Text>
-            </Button>
-            <Button title="Register" onPress = {() => this.props.navigation.navigate("RegisterScreen")}>
-              <Text style={styles.buttonText}>Sign In</Text>
-            </Button>
-          </View>
-        
+
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("LoginScreen")} style={styles.loginBtn}>
+            <Text style={styles.loginText}>LOGIN</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("RegisterScreen")} style={styles.registerBtn}>
+            <Text style={styles.loginText}>REGISTER</Text>
+          </TouchableOpacity>
       </View>
     );
   }
@@ -49,7 +48,9 @@ export default class HomeScreen extends Component<HomeScreenProps> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   logo: {
@@ -85,18 +86,47 @@ const styles = StyleSheet.create({
   },
 
   buttonSigin: {
-    width: 100,
-    height: 45,
+    width: 150,
+    height: 50,
     borderRadius: 25,
-    backgroundColor: '#F08B1C',
+    backgroundColor: '#7FA2B6',
     justifyContent: 'center',
-    margin: 20,
+    marginTop: 20,
+    padding: 20
   },
 
   buttonText: {
     textAlign: "center",
-    color: "white",
-	  fontSize: 16,
-    fontWeight: "500"
+    color: "#7FA2B6",
+    height: 40,
+	  fontSize: 20,
+    fontWeight: "bold"
+    
+  },
+
+  loginBtn:{
+    width:"75%",
+    backgroundColor:"#F08B1C",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",                         
+    justifyContent:"center",
+    marginTop:10,
+    marginBottom:10
+  },
+
+  registerBtn:{
+    width:"75%",
+    backgroundColor:"#F08B1C",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",                         
+    justifyContent:"center",
+    marginTop:20,
+    marginBottom:150
+  },
+
+  loginText:{
+    color:"white"
   }
 });
