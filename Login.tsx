@@ -1,10 +1,46 @@
-import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TextInput, Button, AsyncStorage, Alert } from 'react-native';
+import User from "./User";
 
-export default class App extends React.Component {
-  state={
-    email:"",
-    password:""
+interface LoginScreenProps {
+  navigation;
+}
+
+interface LoginScreenState {
+  email: string;
+  password: string;
+  loginError: string;
+}
+
+export default class LoginScreen extends Component<
+  LoginScreenProps,
+  LoginScreenState
+> {
+  constructor(props: LoginScreenProps) {
+    super(props);
+    this.state = {
+      loginError: '',
+      email: '',
+      password: '',
+    };
+  }
+  submit = () => {
+    const { email, password } = this.state;
+    console.log('email', email);
+    console.log('password', password);
+    User.authenticate(email, password).then(result => {
+      if (result.success) {
+        AsyncStorage.setItem('email', email);
+        AsyncStorage.setItem('auth', password);
+        this.props.navigation.navigate("MatchScreen");
+      } else {
+        //this.setState({ loginError: result.error });
+        Alert.alert(
+          'Sorry!',
+          'Login failed',
+        );
+      }
+    });
   }
   render(){
     return (
@@ -27,6 +63,7 @@ export default class App extends React.Component {
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({password:text})}/>
         </View>
+        <Button title="Submit" onPress={this.submit} />
       </View>
     );
   }
