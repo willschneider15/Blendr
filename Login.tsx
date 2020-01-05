@@ -1,26 +1,14 @@
-<<<<<<< HEAD
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, AsyncStorage, Alert } from 'react-native';
 import User from "./User";
 
 interface LoginScreenProps {
   navigation;
-=======
-import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView } from 'react-native';
-import User from './User';
-import { NavigationStackProp } from 'react-navigation-stack';
-
-
-interface LoginScreenProps {
-  navigation: NavigationStackProp;
->>>>>>> origin/LoginButton
 }
 
 interface LoginScreenState {
   email: string;
   password: string;
-<<<<<<< HEAD
   loginError: string;
 }
 
@@ -53,18 +41,6 @@ export default class LoginScreen extends Component<
         );
       }
     });
-=======
-}
-
-export default class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState> {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-    };
->>>>>>> origin/LoginButton
   }
 
   render(){
@@ -88,13 +64,7 @@ export default class LoginScreen extends React.Component<LoginScreenProps, Login
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({password:text})}/>
         </View>
-<<<<<<< HEAD
         <Button title="Submit" onPress={this.submit} />
-=======
-        <KeyboardAvoidingView style={styles.loginButtonContainer}>
-          <Button title="Login" onPress={this.login} />
-        </KeyboardAvoidingView>
->>>>>>> origin/LoginButton
       </View>
     );
   }
@@ -266,7 +236,7 @@ const styles = StyleSheet.create({
 //     borderWidth: 1,  
 //     height: 40,  
 //     margin: 20,  
-//     padding: 10,  
+//     padding: 10, 
 //   },
 
 //   textOutputStyle: {  
