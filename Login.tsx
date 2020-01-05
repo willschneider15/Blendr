@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     fontWeight:"bold",
     fontSize:50,
     color:"#fb5b5a",
-    marginBottom:40
+    marginBottom:40,
+    fontFamily: "Avenir",
   },
   inputView:{
     width:"80%",
@@ -56,7 +57,8 @@ const styles = StyleSheet.create({
   },
   inputText:{
     height:50,
-    color:"white"
+    color:"white",
+    fontFamily: "Avenir",
   },
 });
 // import React, { Component } from "react";

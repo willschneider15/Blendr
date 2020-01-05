@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     includeFontPadding: false,
     textAlignVertical: 'center',
+    fontFamily: "Avenir",
   },
   row: {
     padding: 20,
