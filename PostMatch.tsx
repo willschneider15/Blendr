@@ -7,12 +7,10 @@ interface HomeScreenProps {
 const LOGO =
   "https://cdn.discordapp.com/attachments/654373638065225731/662870509750452244/logoTest.gif";
 
-export default class postMatchScreen extends Component<HomeScreenProps> {
+export default class PostMatchScreen extends Component<HomeScreenProps> {
   constructor(props) {
     super(props);
   }
-
-
 
   render() {
     return (
@@ -23,7 +21,6 @@ export default class postMatchScreen extends Component<HomeScreenProps> {
           title="Start Match"
           onPress={() => this.props.navigation.navigate("LoginScreen")}
         />
-        
       </View>
     );
   }

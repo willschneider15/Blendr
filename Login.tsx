@@ -18,11 +18,22 @@ export default class LoginScreen extends Component<
 > {
   constructor(props: LoginScreenProps) {
     super(props);
+    if (LoginScreen.loggedIn) {
+      props.navigation.navigate("app");
+    }
     this.state = {
       loginError: '',
       email: '',
       password: '',
     };
+  }
+
+  static get loggedIn() {
+    return new Promise(resolve => {
+      AsyncStorage.getItem("auth", error =>
+        error ? resolve(false) : resolve(true)
+      );
+    });
   }
 
   submit = () => {
@@ -48,19 +59,15 @@ export default class LoginScreen extends Component<
         <Text>Blendr</Text>
         <Text>{this.state.loginError}</Text>
         <TextInput
-      
+          placeholder='Email'
           onChangeText={email => this.setState({ email: email })}
         ></TextInput>
         <TextInput
+          placeholder='Password'
           onChangeText={password => this.setState({ password: password })}
         ></TextInput>
-        <Button title="Submit" onPress={this.log} />
+        <Button title="Submit" onPress={this.submit} />
       </View>
     );
-  }
-
-  log(){
-    this.submit;
-    this.props.navigation.navigate("MatchScreen");
   }
 }

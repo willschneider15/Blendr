@@ -17,14 +17,6 @@ export default class User {
     return AsyncStorage.getItem('auth');
   }
 
-  static get isLoggedIn() {
-    return new Promise(resolve => {
-      AsyncStorage.getItem("auth", error =>
-        error ? resolve(false) : resolve(true)
-      );
-    });
-  }
-
   private constructor(email: string, firstName: string, questionAnswer: QuestionAnswer[]) {
     this.email = email;
     this.firstName = firstName;
@@ -43,7 +35,7 @@ export default class User {
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
-        console.log('fail');
+        console.log('error:', errorMessage);
         success = false;
         return false;
       });
@@ -95,6 +87,6 @@ export default class User {
         const user = new User(val.email, val.firstName, val.questionAnswers);
         resolve(user);
       });
-    });
+    }).catch(console.error);
   }
 }
