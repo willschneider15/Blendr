@@ -15,9 +15,9 @@ interface HomeScreenState {
 }
 
 interface MatchObject {
-  currentUser: Promise<User>;
-  otherUser: User;
-  location: Promise<AxiosResponse<any>>;
+  user1: User;
+  user2: User;
+  location;
   time: Date;
 }
 
@@ -51,18 +51,23 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
     );
   }
 
-  onMatchFound = matchInfo => {
-    return;
-    console.info("matchInfo:", matchInfo);
-    this.props.navigation.navigate("postMatchScreen");
+  onMatchFound = matchObj => {
+    console.info("matchInfo:", matchObj);
+    this.props.navigation.navigate("PostMatchScreen", {
+      matchObj: matchObj
+    });
   };
 
   match = async () => {
+    const time1 = new Date().getMilliseconds();
     let currEmail = await AsyncStorage.getItem("email");
 
+    console.log(`Finding match for user ${currEmail}`);
     // Find domain of current user
     let atSym = currEmail.indexOf("@");
     let domain = currEmail.substring(atSym + 1);
+
+    let proposedLocation = this.chooseLoc();
 
     // Check if document exists for domain
     firestore
@@ -73,14 +78,15 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
         if (doc.exists) {
           // Create match using email field
           let otherEmail = doc.get("email");
+          let time = this.chooseTime();
           firestore
             .collection("Matches")
             .doc(currEmail + "+" + otherEmail)
             .set({
               user1: currEmail,
               user2: otherEmail,
-              location: await this.chooseLoc(),
-              when: this.chooseTime(),
+              location: await proposedLocation,
+              when: time,
               completed: false
             });
 
@@ -99,7 +105,14 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
             });
 
           // TODO: Navigate to postMatch page
-          this.props.navigation.navigate("PostMatchScreen");
+          const result = {
+            user1: await User.getUser(currEmail),
+            user2: await User.getUser(otherEmail),
+            location: await proposedLocation,
+            when: time
+          };
+          console.log(`Found match for ${currEmail} in ${new Date().getMilliseconds() - time1} ms:`, result);
+          return result;
         } else {
           // Add document with email field
           let waitingPerson = { email: currEmail };
@@ -109,26 +122,37 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
             .set(waitingPerson);
           // WAIT FUNCTIONALITY GOES HERE...send user to waiting screen
           let success = false;
+          let doc;
           for (let i = 0; i < 20; i++) {
-            firestore
+            doc = await firestore
               .collection("IncomingMatches")
               .doc(domain)
-              .get()
-              .then(doc => {
-                if (doc.exists) {
-                  // TODO: Navigate to postMatch page
-                  firestore
-                    .collection("IncomingMatches")
-                    .doc(domain)
-                    .delete();
-                  this.props.navigation.navigate("PostMatchScreen");
-                  success = true;
-                }
-              });
+              .get();
+            if (!doc.exists) {
+              // TODO: Navigate to postMatch page
+              firestore
+                .collection("IncomingMatches")
+                .doc(domain)
+                .delete();
+              success = true;
+              break;
+            }
           }
           if (!success) {
             throw new Error("Timed out");
           }
+          const matchDoc = firestore.collection("Users").doc(currEmail).get().then(data => {
+            return firestore.collection("Match").doc(data.get("match")).get();
+          });
+
+          const result = {
+            user1: await matchDoc.then(doc => User.getUser(doc.get("user1"))),
+            user2: await matchDoc.then(doc => User.getUser(doc.get("user2"))),
+            location: await matchDoc.then(doc => doc.get("location")),
+            when: await matchDoc.then(doc => doc.get("when")),
+          }
+          console.log(`Found match for ${currEmail} in ${new Date().getMilliseconds() -time1} ms:`, result);
+          return result;
         }
       });
   };
@@ -156,11 +180,11 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
         }
       })
       .then(res => {
-        console.log('res', res.data.businesses[0].name)
+        console.log("res", res.data.businesses[0].name);
         return res.data.businesses[0].name;
       })
       .catch(err => {
-        console.log("No locations were found");
+        console.error("No locations were found:", err);
       });
   }
 }
