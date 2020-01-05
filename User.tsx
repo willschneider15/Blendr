@@ -60,6 +60,7 @@ export default class User {
     firstName: string,
     questionAnswers: QuestionAnswer[]
   ): Promise<Boolean> {
+    email = email.toLowerCase();
     let success = true;
     // Attempt to create user in Firebase
     await firebaseAuth
@@ -100,11 +101,11 @@ export default class User {
     }
   }
 
-  static async authenticate(username: string, password: string) {
+  static async authenticate(email: string, password: string) {
     let successful = true;
     let res = { success: true };
     await firebaseAuth
-      .signInWithEmailAndPassword(username, password)
+      .signInWithEmailAndPassword(email.toLowerCase(), password)
       .catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -125,7 +126,7 @@ export default class User {
     console.log(`Finding user with email ${email}`);
     const userDoc = await firestore
       .collection("Users")
-      .doc(email)
+      .doc(email.toLowerCase())
       .get();
     if (!userDoc.exists) {
       const errorString = `Could not find user with email ${email}`;
