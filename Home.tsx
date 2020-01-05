@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 
   logo: {
     width: 100,
-    heigth: 140
+    height: 140
   },
 
   logoContainer: {
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: "dark grey",
+    color: "white",
     marginTop: 25,
     textAlign: "center"
   },
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 
   buttonText: {
     textAlign: "center",
-    color: "dark grey",
+    color: "white",
     fontWeight: "700"
   }
 });
