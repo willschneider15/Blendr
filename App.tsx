@@ -9,7 +9,7 @@ import User from "./User";
 import LoginScreen from "./Login";
 import RegisterScreen from "./Register";
 import MatchScreen from "./Match";
-//import postMatchScreen from "./PostMatch";
+import PostMatchScreen from "./PostMatch";
 import HomeScreen from "./Home";
 
 const config: NavigationStackRouterConfig = {
@@ -19,19 +19,34 @@ const config: NavigationStackRouterConfig = {
 const AppNavigator = createStackNavigator(
   {
     MatchScreen: {
-      screen: MatchScreen
+      screen: MatchScreen,
+      navigationOptions: {
+        headerShown: false
+      }
     },
-    // postMatchScreen: {
-    //   screen: postMatchScreen
-    // },
+    PostMatchScreen: {
+      screen: PostMatchScreen,
+      navigationOptions: {
+        headerTitle: "New Work Buddy!",        
+      }
+    },
     HomeScreen: {
-      screen: HomeScreen
+      screen: HomeScreen,
+      navigationOptions: {
+        headerShown: false
+      }
     },
     LoginScreen: {
-      screen: LoginScreen
+      screen: LoginScreen,
+      navigationOptions: {
+        headerTitle: "Login",
+      }
     },
     RegisterScreen: {
-      screen: RegisterScreen
+      screen: RegisterScreen,
+      navigationOptions: {
+        headerTitle: "Register"
+      }
     }
   },
   config

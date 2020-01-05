@@ -33,7 +33,7 @@ export default class HomeScreen extends Component<HomeScreenProps> {
 
           <TextInput placeholder="Password" style={styles.input} />
       */}
-          
+
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("LoginScreen")} style={styles.loginBtn}>
             <Text style={styles.loginText}>LOGIN</Text>
           </TouchableOpacity>

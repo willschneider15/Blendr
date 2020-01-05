@@ -36,7 +36,7 @@ class MatchJob {
 }
 
 interface ViewButtonProps {
-  onMatchFound(matchObject): void;
+  onMatchFound(matchObject: MatchObject): void;
   matchFunc(): Promise<MatchObject>
 }
 
@@ -71,12 +71,15 @@ export default class ViewButton extends Component<ViewButtonProps, ViewButtonSta
     this.setState({
       matchmaking: true
     });
-    this.props.matchFunc()
+    const result = this.props.matchFunc();
+    result.then(result => console.log('matchFunc', result));
+    result
       .then(matchObj => {
+        console.log('Found match!:', matchObj);
         this.props.onMatchFound(matchObj);
         this.stopMatchmaking('');
       })
-      .catch(reason => this.stopMatchmaking('No matches found'));
+      .catch(reason => this.stopMatchmaking(reason));
   };
 
   render() {
