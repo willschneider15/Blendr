@@ -23,6 +23,10 @@ interface MatchObject {
 
 const LOGO =
   "https://cdn.discordapp.com/attachments/654373638065225731/662870509750452244/logoTest.gif";
+const LOADING = "https://cdn.discordapp.com/attachments/654373638065225731/663242149965594645/Screen_Shot_2020-01-04_at_11.47.10_PM.png";
+const NOT_LOADING = ""
+const Not = "https://cdn.discordapp.com/attachments/654373638065225731/663242149965594645/Screen_Shot_2020-01-04_at_11.47.10_PM.png";
+const Move = "https://www.google.com/search?q=gif+of+loading+dots&sxsrf=ACYBGNTRdv_4M8Z044hrUZvvKFJ3H_Kd4w:1578199025618&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiJ4bnC0evmAhUpU98KHT4hCkgQ_AUoAXoECAwQAw&biw=1422&bih=715&dpr=1.8#imgrc=yiqKeNHA5OZ0dM:";
 
 class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
   constructor(props) {
@@ -44,8 +48,6 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
     //var currentTime = new(Date)
     return (
       <View>
-        <Text>{this.state.date}</Text>
-        <Image style={{ width: 70, height: 70 }} source={{ uri: LOGO }}></Image>
         <ViewButton matchFunc={this.match} onMatchFound={this.onMatchFound} />
       </View>
     );
