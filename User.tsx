@@ -43,7 +43,6 @@ export default class User {
         <Text>Hometown: {this.hometown}</Text>
         <Text>Where you're meeting: {location}</Text>
         <Button title="Open in Google Maps!" onPress={()=>Linking.openURL(mapsURI)}></Button>
-        <WebView style={{height: 1000, width: 1000}} source={{uri: mapsURI}} />
       </View>
     )
   }

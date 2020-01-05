@@ -5,9 +5,10 @@ import { View, Text, Image, Button, AsyncStorage, StyleSheet } from "react-nativ
 import ViewButton from "./ViewButton";
 import User from "./User";
 import { firestore } from "./FirebaseConfig";
+import { NavigationStackProp } from 'react-navigation-stack';
 
 interface HomeScreenProps {
-  navigation;
+  navigation: NavigationStackProp;
 }
 
 interface HomeScreenState {

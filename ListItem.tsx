@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
+import { NavigationStackProp } from 'react-navigation-stack';
+
 
 interface ListItemProps {
   style: StyleSheet;
