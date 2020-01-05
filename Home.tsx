@@ -16,7 +16,7 @@ export default class HomeScreen extends Component<HomeScreenProps> {
     return (
       
       <View style={styles.container}>
-                                                    <View style={styles.logoContainer}>
+          <View style={styles.logoContainer}>
           <Image style={styles.logo} source={{ uri: LOGO }} />
           <Text style={styles.title}>BLENDR</Text>
         </View>
@@ -41,6 +41,7 @@ export default class HomeScreen extends Component<HomeScreenProps> {
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("RegisterScreen")} style={styles.registerBtn}>
             <Text style={styles.loginText}>REGISTER</Text>
           </TouchableOpacity>
+          <Text style={styles.caption}>Mix up your social network</Text>
       </View>
     );
   }
@@ -64,6 +65,13 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
 
+  caption: {
+    fontStyle: 'italic',
+    fontSize: 24,
+    color: '#7FA2B6',
+    marginBottom: 50,
+  },
+
   /*
   formContainer: {
     padding: 20
@@ -77,9 +85,8 @@ const styles = StyleSheet.create({
   }, */
 
   title: {
-    color: 'black',
-    fontSize: 20,
-    opacity: 0.5,
+    color: '#fb5b5a',
+    fontSize: 40,
     marginTop: 25,
     textAlign: "center",
     fontWeight: 'bold',
@@ -111,7 +118,6 @@ const styles = StyleSheet.create({
     height:50,
     alignItems:"center",                         
     justifyContent:"center",
-    marginTop:10,
     marginBottom:10
   },
 
@@ -123,7 +129,7 @@ const styles = StyleSheet.create({
     alignItems:"center",                         
     justifyContent:"center",
     marginTop:20,
-    marginBottom:150
+    marginBottom: 50,
   },
 
   loginText:{

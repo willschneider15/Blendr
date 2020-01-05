@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     borderWidth: 3,
-    borderColor: '#F08B1C',
+    borderColor: 'blue',
     textAlign: 'center',
     color: "black",
   },
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#F08B1C',
     flex: 1,
   },
 
