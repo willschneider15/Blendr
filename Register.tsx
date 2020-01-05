@@ -35,7 +35,6 @@ const questionData = [
   },
 ];
 
-
 interface RegisterProps {
   navigation: NavigationStackProp;
 }
@@ -45,9 +44,11 @@ interface RegisterState {
 }
 
 export default class Register extends Component<RegisterProps, RegisterState> {
-  listGenerator = data => {
+  answers = {}
+
+  listGenerator = ({data}) => {
     return (
-      <TextInput placeholder={data.question} onChange={()=>{}} />
+      <TextInput placeholder={data.question} onChange={text => this.answers[data.key] = text} />
     )
   }
 
@@ -82,29 +83,6 @@ export default class Register extends Component<RegisterProps, RegisterState> {
     });
   }
 }
-
-  // submit = async () => {
-  //   let { email, password, firstName, answers } = this.state;
-  //   const newAnswers = answers.map((answer, i) => ({
-  //     question: questions[i],
-  //     answer: answer,
-  //     dbKey: dbKeys[i]
-  //   }));
-  //   console.log("state", this.state);
-  //   console.log("newAnswers", newAnswers);
-  //   const res = await User.createUser(email, password, firstName, newAnswers);
-  //   // If login succeeds, navigate to homepage
-  //   if (res) {
-  //     Alert.alert("Congrats!", "Your Registration Was Successful");
-  //     this.props.navigation.navigate("HomeScreen");
-  //   } else {
-  //     Alert.alert("Sorry!", "Registration failed");
-  //   }
-  //   AsyncStorage.setItem("email", email);
-  //   AsyncStorage.setItem("auth", password);
-  //   AsyncStorage.setItem("firstName", firstName);
-  // };
-
 
 const styles = StyleSheet.create({
   input: {
