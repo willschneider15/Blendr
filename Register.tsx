@@ -1,13 +1,40 @@
 import React, { Component } from "react";
-import { View, TextInput, Button, AsyncStorage, Alert } from "react-native";
+import { View, TextInput, Button, AsyncStorage, Alert, Text, StyleSheet } from "react-native";
 import User from "./User";
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 // NEED TO UPDATE THESE TWO IN PARALLEL
 const questions = ["What is your role?", 
                   "What school did you graduate from?", 
                   "Where are you from?", 
-                  "How long have you been working for your company?"];
+                  "How long have you been working?"];
 const dbKeys = ["role", "school", "hometown", "experience"];
+
+const styles = StyleSheet.create({
+  input: {
+    height: 40,
+    borderWidth: 3,
+    borderColor: '#F08B1C',
+    textAlign: 'center',
+    color: "black",
+  },
+  text: {
+    height: 40,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+    includeFontPadding: false,
+    textAlignVertical: 'center',
+  },
+  row: {
+    padding: 20,
+  },
+  button: {
+    backgroundColor: 'blue',
+    flex: 1,
+  },
+
+});
 
 interface RegisterProps {
   navigation;
@@ -23,11 +50,14 @@ interface RegisterState {
 export default class Register extends Component<RegisterProps, RegisterState> {
   answers = new Array(questions.length).map(() => '');
   elements = questions.map((question, index) => (
-    <TextInput
-      placeholder={question}
-      onChangeText={text => this.onQuestionChange(text, index)}
-      key={index}
-    />
+    <Row style={styles.row}>
+      <Col><Text style={styles.text}>{question}</Text></Col>
+      <Col><TextInput
+        style={styles.input}
+        onChangeText={text => this.onQuestionChange(text, index)}
+        key={index}
+      /></Col>
+    </Row>
   ));
 
   constructor(props: RegisterProps) {
@@ -78,22 +108,32 @@ export default class Register extends Component<RegisterProps, RegisterState> {
 
   render() {
     return (
-      <View>
-        <TextInput
-          placeholder="Email"
-          onChangeText={email => this.setState({ email: email })}
-        ></TextInput>
-        <TextInput
-          placeholder="Password"
+      <Grid>
+        <Row style={styles.row}>
+          <Col><Text style={styles.text}>Email</Text></Col>
+          <Col><TextInput
+            style={styles.input}
+            onChangeText={email => this.setState({ email: email })}
+          ></TextInput></Col>
+        </Row>
+        <Row style={styles.row}>
+          <Col><Text style={styles.text}>Password</Text></Col>
+          <Col><TextInput
+          style={styles.input}
+          secureTextEntry={true}
           onChangeText={password => this.setState({ password: password })}
-        ></TextInput>
-        <TextInput
-          placeholder="First Name"
-          onChangeText={firstName => this.setState({ firstName: firstName })}
-        ></TextInput>
+          ></TextInput></Col>
+        </Row>
+        <Row style={styles.row}>
+          <Col><Text style={styles.text}>First Name</Text></Col>
+          <Col><TextInput
+            style={styles.input}
+            onChangeText={firstName => this.setState({ firstName: firstName })}
+          ></TextInput></Col>
+        </Row>
         {this.elements}
-        <Button title="Submit" onPress={this.submit}></Button>
-      </View>
+        <Row style={styles.row}><View style={styles.button} ><Button title="Submit" color='white' onPress={this.submit}></Button></View></Row>
+      </Grid>
     );
   }
 }
