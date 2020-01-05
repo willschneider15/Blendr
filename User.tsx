@@ -4,7 +4,9 @@ import { database } from "firebase";
 import { firebaseAuth } from "./FirebaseConfig";
 import { firestore } from "./FirebaseConfig";
 import React, {Component} from "react";
-import {Text, View} from "react-native";
+import {Text, View, Button} from "react-native";
+import {WebView} from "react-native-webview";
+import {Linking} from "expo";
 
 interface QuestionAnswer {
   question: string;
@@ -31,6 +33,8 @@ export default class User {
   }
 
   getComponent = (location: string) => {
+    const mapsURI = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+    console.log('mapsURI', mapsURI);
     return (
       <View>
         <Text>Email: {this.email}</Text>
@@ -38,6 +42,8 @@ export default class User {
         <Text>Experience: {this.experience}</Text>
         <Text>Hometown: {this.hometown}</Text>
         <Text>Where you're meeting: {location}</Text>
+        <Button title="Open in Google Maps!" onPress={()=>Linking.openURL(mapsURI)}></Button>
+        <WebView style={{height: 1000, width: 1000}} source={{uri: mapsURI}} />
       </View>
     )
   }
