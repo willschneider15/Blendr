@@ -34,7 +34,10 @@ export default class HomeScreen extends Component<HomeScreenProps> {
           <TextInput placeholder="Password" style={styles.input} />
       */}
           <View style={styles.buttonSigin}>
-            <Button title="Login" onPress = {() => this.props.navigation.navigate("Login")}>
+            <Button title="Login" onPress = {() => this.props.navigation.navigate("LoginScreen")}>
+              <Text style={styles.buttonText}>Sign In</Text>
+            </Button>
+            <Button title="Register" onPress = {() => this.props.navigation.navigate("RegisterScreen")}>
               <Text style={styles.buttonText}>Sign In</Text>
             </Button>
           </View>
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     marginTop: 25,
     textAlign: "center",
-    frontWeight: '500',
+    fontWeight: '500',
   },
 
   buttonSigin: {
