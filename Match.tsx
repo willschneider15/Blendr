@@ -144,7 +144,7 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
               }
             }
             if (!success) {
-              console.error("Timed out!");
+              console.log("Timed out!");
               reject("Timed out!");
             }
             const matchDoc = firestore
@@ -164,7 +164,7 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
               location: await matchDoc.then(doc => doc.get("location")),
               time: await matchDoc.then(doc => doc.get("when"))
             };
-            console.log(
+            console.error(
               `Found match for ${currEmail} in ${time1 -
                 new Date().getMilliseconds()} ms:`,
               result
