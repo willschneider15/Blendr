@@ -14,12 +14,14 @@ export default class HomeScreen extends Component<HomeScreenProps> {
   }
   render() {
     return (
+      
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={{ uri: LOGO }} />
-          <Text style={styles.title} />
+          <Text style={styles.title}>BLENDR</Text>
         </View>
 
+      {/*
         <View style={styles.formContainer}>
           <TextInput style={styles.input} />
 
@@ -30,12 +32,13 @@ export default class HomeScreen extends Component<HomeScreenProps> {
           />
 
           <TextInput placeholder="Password" style={styles.input} />
+      */}
           <View style={styles.buttonSigin}>
-            <Button title="the button" onPress = {() => this.props.navigation.navigate("Login")}>
+            <Button title="Login" onPress = {() => this.props.navigation.navigate("Login")}>
               <Text style={styles.buttonText}>Sign In</Text>
             </Button>
           </View>
-        </View>
+        
       </View>
     );
   }
@@ -47,8 +50,8 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 100,
-    height: 140
+    width: 150,
+    height: 150
   },
 
   logoContainer: {
@@ -57,31 +60,40 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
 
+  /*
   formContainer: {
     padding: 20
-  },
+  }, 
 
   input: {
     height: 40,
     backgroundColor: "green",
     marginBottom: 20,
     color: "black"
-  },
+  }, */
 
   title: {
-    color: "white",
+    color: 'black',
+    fontSize: 20,
+    opacity: 0.5,
     marginTop: 25,
-    textAlign: "center"
+    textAlign: "center",
+    frontWeight: '500',
   },
 
   buttonSigin: {
-    backgroundColor: "green",
-    paddingVertical: 37
+    width: 100,
+    height: 45,
+    borderRadius: 25,
+    backgroundColor: '#F08B1C',
+    justifyContent: 'center',
+    margin: 20,
   },
 
   buttonText: {
     textAlign: "center",
     color: "white",
-    fontWeight: "700"
+	  fontSize: 16,
+    fontWeight: "500"
   }
 });

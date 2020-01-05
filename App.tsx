@@ -13,7 +13,7 @@ import MatchScreen from "./Match";
 import HomeScreen from "./Home";
 
 const config: NavigationStackRouterConfig = {
-  initialRouteName: "HomeScreen"
+  initialRouteName: "LoginScreen"
 };
 
 const AppNavigator = createStackNavigator(

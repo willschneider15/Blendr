@@ -1,3 +1,38 @@
+// import React, { Component } from 'react';
+// import {View, Text, StyleSheet, Image},  from 'react-native';
+// import { getActiveChildNavigationOptions } from 'react-navigation';
+
+// const LOGO = "https://cdn.discordapp.com/attachments/654373638065225731/663179114299260929/blendrIcon.jpg"
+// //create a component
+// class Login extends Component {
+//   render() {
+//     return (
+//         <View style={styles.container}>
+//             <Image resizeMode="contain" style={styles.logo} source={{uri:LOGO}}></Image>
+//         </View>
+//     );
+//   }
+// }
+
+// //define your styles
+// const styles = StyleSheet.create({
+//     container: {
+//       flex: 1,
+//       backgroundColor: '#2c3e58',
+//     },
+//     loginContainer:{
+//       alignItems: 'center',
+//       flexGrow: 1,
+//       justifyContent: 'center'
+//     },
+
+//     logo: {
+//       position: 'absolute',
+//       width: 300,
+//       height: 100
+//   }
+// })
+
 import React, { Component } from "react";
 import { StyleSheet, View, AsyncStorage, TextInput, Button, Text, Alert } from "react-native";
 import User from "./User";
@@ -53,11 +88,15 @@ export default class LoginScreen extends Component<
   render() {
     return (
       <View>
-        <Text>Blendr</Text>
         <Text>{this.state.loginError}</Text>
-        <TextInput onChangeText={email => this.setState({ email: email })}
+        <Text> UserName</Text>
+        <TextInput 
+        style = {styles.textInputStyle}
+        onChangeText={email => this.setState({ email: email })}
         ></TextInput>
+        <Text>Password</Text>
         <TextInput
+          style = {styles.textInputStyle}
           onChangeText={password => this.setState({ password: password })}
         ></TextInput>
         <Button title="Submit" onPress={this.log} />
@@ -70,3 +109,59 @@ export default class LoginScreen extends Component<
     this.props.navigation.navigate("MatchScreen");
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
+  logo: {
+    width: 100,
+    height: 140
+  },
+
+  logoContainer: {
+    alignItems: "center",
+    flexGrow: 1,
+    justifyContent: "center"
+  },
+
+  formContainer: {
+    padding: 20
+  },
+
+  input: {
+    height: 40,
+    backgroundColor: "green",
+    marginBottom: 20,
+    color: "black"
+  },
+
+  title: {
+    color: "white",
+    marginTop: 25,
+    textAlign: "center"
+  },
+
+  buttonSigin: {
+    backgroundColor: "green",
+    paddingVertical: 37
+  },
+
+  buttonText: {
+    textAlign: "center",
+    color: "white",
+    fontWeight: "700"
+  },
+
+  textInputStyle: {  
+    borderColor: '#9a73ef',  
+    borderWidth: 1,  
+    height: 40,  
+    margin: 20,  
+    padding: 10,  
+  },
+
+  textOutputStyle: {  
+    fontSize: 20  
+  } 
+});
