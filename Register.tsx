@@ -8,31 +8,6 @@ import {
 import { NavigationStackProp } from 'react-navigation-stack';
 import ListItem from "./ListItem"
 
-<<<<<<< HEAD
-// NEED TO UPDATE THESE TWO IN PARALLEL
-const questions = ["What is your role?", 
-                  "What school did you graduate from?", 
-                  "Where are you from?", 
-                  "How long have you been working?"];
-const dbKeys = ["role", "school", "hometown", "experience"];
-
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    borderWidth: 3,
-    borderColor: 'blue',
-    textAlign: 'center',
-    color: "black",
-  },
-  text: {
-    height: 40,
-    textAlign: 'center',
-    fontStyle: 'italic',
-    fontWeight: 'bold',
-    includeFontPadding: false,
-    textAlignVertical: 'center',
-    fontFamily: "Avenir",
-=======
 const questionData = [
   {
     question: "Email",
@@ -41,21 +16,14 @@ const questionData = [
   {
     question: "Password",
     key: "password",
->>>>>>> origin/LoginButton
   },
   {
     question: "What is your role?",
     key: "role",
   },
-<<<<<<< HEAD
-  button: {
-    backgroundColor: '#F08B1C',
-    flex: 1,
-=======
   {
     question: "What school did you graduate from?",
     key: "school",
->>>>>>> origin/LoginButton
   },
   {
     question: "Where are you from?",
@@ -63,9 +31,10 @@ const questionData = [
   },
   {
     question: "How long have you been working?",
-    key: "experience",
+    key: "experience"
   },
 ];
+
 
 interface RegisterProps {
   navigation: NavigationStackProp;
