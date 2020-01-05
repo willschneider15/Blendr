@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import data from "./secrets.json";
 import axios, { AxiosResponse } from "axios";
-import { View, Text, Image, Button, AsyncStorage } from "react-native";
+import { View, Text, Image, Button, AsyncStorage, StyleSheet } from "react-native";
 import ViewButton from "./ViewButton";
 import User from "./User";
 import { firestore } from "./FirebaseConfig";
@@ -22,7 +22,7 @@ interface MatchObject {
 }
 
 const LOGO =
-  "https://cdn.discordapp.com/attachments/654373638065225731/662870509750452244/logoTest.gif";
+  "https://cdn.discordapp.com/attachments/654373638065225731/663199290847526942/blendrIcon1.png";
 const LOADING = "https://cdn.discordapp.com/attachments/654373638065225731/663242149965594645/Screen_Shot_2020-01-04_at_11.47.10_PM.png";
 const NOT_LOADING = ""
 const Not = "https://cdn.discordapp.com/attachments/654373638065225731/663242149965594645/Screen_Shot_2020-01-04_at_11.47.10_PM.png";
@@ -47,7 +47,9 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
   render() {
     //var currentTime = new(Date)
     return (
-      <View>
+      <View style={styles.container}>
+        <Image style={styles.logo} source={{uri: LOGO}}/>
+        <Text style={styles.title}>Find Match</Text>
         <ViewButton matchFunc={this.match} onMatchFound={this.onMatchFound} />
       </View>
     );
@@ -130,7 +132,7 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
             // WAIT FUNCTIONALITY GOES HERE...send user to waiting screen
             let success = false;
             let doc;
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 20; i++) { //pinging the server 20 times
               doc = await firestore
                 .collection("IncomingMatches")
                 .doc(domain)
@@ -210,3 +212,92 @@ class MatchScreen extends Component<HomeScreenProps, HomeScreenState> {
 }
 
 export { MatchScreen as default, MatchObject };
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 60,
+  },
+
+  logoContainer: {
+    alignItems: "center",
+    flexGrow: 1,
+    justifyContent: "center"
+  },
+
+  /*
+  formContainer: {
+    padding: 20
+  }, 
+
+  input: {
+    height: 40,
+    backgroundColor: "green",
+    marginBottom: 20,
+    color: "black"
+  }, */
+
+  title: {
+    color: 'black',
+    fontSize: 40,
+    opacity: 1,
+    marginBottom: 25,
+    textAlign: "center",
+    fontWeight: 'bold',
+    fontFamily: "Avenir"
+  },
+
+  buttonSigin: {
+    width: 150,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#7FA2B6',
+    justifyContent: 'center',
+    marginTop: 20,
+    padding: 20
+  },
+
+  buttonText: {
+    textAlign: "center",
+    color: "#7FA2B6",
+    height: 40,
+	  fontSize: 20,
+    fontWeight: "bold"
+    
+  },
+
+  loginBtn:{
+    width:"75%",
+    backgroundColor:"#F08B1C",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",                         
+    justifyContent:"center",
+    marginTop:10,
+    marginBottom:10
+  },
+
+  registerBtn:{
+    width:"75%",
+    backgroundColor:"#F08B1C",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",                         
+    justifyContent:"center",
+    marginTop:20,
+    marginBottom:150
+  },
+
+  loginText:{
+    color:"white"
+  }
+});

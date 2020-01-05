@@ -6,11 +6,13 @@ import {
   Image,
   Text,
   View,
-  ActivityIndicator
+  ActivityIndicator,
+  StyleSheet
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {MatchObject} from "./Match";
 
+const Buttons = "https://cdn.discordapp.com/attachments/654373638065225731/663252486798311447/game-start-button-png.png";
 const LOADING =
   "https://media.giphy.com/media/12yixaK3jASpb2/giphy.gif"
 const NOT_LOADING = 
@@ -83,27 +85,37 @@ export default class ViewButton extends Component<ViewButtonProps, ViewButtonSta
 
   render() {
     if (this.state.matchmaking) {
+      //Loading
       return (
         <View style={{ alignContent: "center" }}>
           <Image
-            style={{ width: 70, height: 70 }}
+            style={{ width: 80, height: 80, paddingLeft: 200 }}
             source={{ uri: LOADING }}
           ></Image>
+          <TouchableOpacity style={styles.loginBtn}>
+            
+          <Text style={styles.loginText}>Start</Text>
+          </TouchableOpacity>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            <Text>Searching </Text>
             <ActivityIndicator />
           </View>
         </View>
       );
     } else {
+      // Not loading
       return (
-        <TouchableOpacity onPress={this.startMatchmaking}>
-          <View>
-            <Image
-              style={{ width: 70, height: 70 }}
+        <View>
+          <Image style={{ width: 80, height: 80 , paddingLeft: 200 }}
               source={{ uri: NOT_LOADING }}
             ></Image>
-            <Text>Find Match</Text>
+            <TouchableOpacity onPress={this.startMatchmaking} style={styles.loginBtn}>
+            
+            <Text style={styles.loginText}>Start</Text>
+            {/* <Image
+              style={{ width: 200, height: 70 }}
+              source={{ uri: Buttons }}
+            ></Image> */}
+            
             <Text
               style={{
                 color: "red",
@@ -113,9 +125,110 @@ export default class ViewButton extends Component<ViewButtonProps, ViewButtonSta
             >
               {this.state.error}
             </Text>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
       );
     }
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 60,
+  },
+
+  logoContainer: {
+    alignItems: "center",
+    flexGrow: 1,
+    justifyContent: "center"
+  },
+
+  /*
+  formContainer: {
+    padding: 20
+  }, 
+
+  input: {
+    height: 40,
+    backgroundColor: "green",
+    marginBottom: 20,
+    color: "black"
+  }, */
+
+  title: {
+    color: 'black',
+    fontSize: 40,
+    opacity: 1,
+    marginBottom: 25,
+    textAlign: "center",
+    fontWeight: 'bold',
+    fontFamily: "Avenir"
+  },
+
+  buttonSigin: {
+    width: 150,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#7FA2B6',
+    justifyContent: 'center',
+    marginTop: 20,
+    padding: 20
+  },
+
+  buttonText: {
+    textAlign: "center",
+    color: "#7FA2B6",
+    height: 40,
+	  fontSize: 40,
+    fontWeight: "bold"
+    
+  },
+
+  loginBtn:{
+    width:"75%",
+    backgroundColor:"#F08B1C",
+    borderRadius:55,
+    height:70,
+    marginLeft: 25,
+    paddingTop: 15,
+    alignItems:"center",                         
+    justifyContent:"center",
+    marginTop:10,
+    marginBottom:10,
+    shadowColor: "#7FA2B6",
+    shadowRadius: 255,
+    shadowOpacity: 1,
+    shadowOffset: {width: 15, height: 10},
+ 
+  },
+
+  registerBtn:{
+    width:"75%",
+    backgroundColor:"#F08B1C",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",                         
+    justifyContent:"center",
+    marginTop:20,
+    marginBottom:150
+  },
+
+  loginText:{
+    color:"white",
+    fontSize: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "Avenir",
+    fontWeight: "bold",
+
+  }
+});
