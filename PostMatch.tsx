@@ -22,7 +22,6 @@ export default class PostMatchScreen extends Component<PostMatchScreenProps> {
     super(props);
     this.matchObj = props.navigation.getParam("matchObj");
     const matchObj = props.matchObj;
-    const currentUserEmail = 
     console.log('matchObj', matchObj);
   }
 

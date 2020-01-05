@@ -3,7 +3,8 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   FlatList,
-  TextInput
+  TextInput,
+  View
 } from "react-native";
 import { NavigationStackProp } from 'react-navigation-stack';
 import ListItem from "./ListItem"
@@ -39,24 +40,20 @@ interface RegisterProps {
   navigation: NavigationStackProp;
 }
 
-interface RegisterState {
-  answers; // Map from dbKey to answer
-}
 
-export default class Register extends Component<RegisterProps, RegisterState> {
-  answers = {}
+export default class Register extends Component<RegisterProps> {
+  answers = {};
 
-  listGenerator = ({data}) => {
+  listGenerator = (item: { question: string; key: React.ReactText; }) => {
     return (
-      <TextInput placeholder={data.question} onChange={text => this.answers[data.key] = text} />
-    )
-  }
+    <View>
+      <TextInput placeholder={item.question} onChange={text => this.answers[item.key] = text} />
+    </View>
+    );
+  };
 
   constructor(props: RegisterProps) {
     super(props);
-    this.state = {
-      answers: {}
-    }
   }
   
   async render() {
@@ -70,13 +67,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
     );
   }
 
-  setQuestionResponse(key: string, value: string) {
-    const newState = {};
-    newState[key] = value;
-    this.setState(newState);
-  }
-
-  onQuestionChange(text, i) {
+  onQuestionChange(text: any, i: React.ReactText) {
     this.setState(prevState => {
       prevState.answers[i] = text;
       return prevState;
