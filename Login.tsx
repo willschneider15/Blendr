@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, AsyncStorage, TextInput, Button, Text, Alert } from "react-native";
+import { StyleSheet, View, AsyncStorage, TextInput, Button, Text, Alert } from "react-native";
 import User from "./User";
 
 interface LoginScreenProps {
@@ -42,14 +42,20 @@ export default class LoginScreen extends Component<
     });
   }
 
+  styles = StyleSheet.create({
+    username: {
+      color: 'blue',
+      fontWeight: 'bold'
+    }
+    
+  }) 
+
   render() {
     return (
       <View>
         <Text>Blendr</Text>
         <Text>{this.state.loginError}</Text>
-        <TextInput
-      
-          onChangeText={email => this.setState({ email: email })}
+        <TextInput onChangeText={email => this.setState({ email: email })}
         ></TextInput>
         <TextInput
           onChangeText={password => this.setState({ password: password })}
