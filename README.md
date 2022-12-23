@@ -1,0 +1,2 @@
+# Blendr
+This is a hackathon project at Hyland in 2020. The idea is to create a social networking platform, with the focus of creating real relationships. To start use your domain-specific email in the user setup and answer some custom questions. Then you will be paired with someone within your network and will have to select a time and place to meet. At the end of the meeting, you will be the project you will be prompted with a quiz about the other user. Your goal is to remember as much as you can about the other user. Which will affect your overall score.
